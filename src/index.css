@@ -1,5 +1,40 @@
 @import "tailwindcss";
 
+@theme {
+  --color-primary-50: #f0f9f4;
+  --color-primary-100: #d9f0e3;
+  --color-primary-200: #b5e1ca;
+  --color-primary-300: #84cba9;
+  --color-primary-400: #53af85;
+  --color-primary-500: #2D6A4F;
+  --color-primary-600: #245941;
+  --color-primary-700: #1e4836;
+  --color-primary-800: #193a2d;
+  --color-primary-900: #143026;
+
+  --color-secondary-50: #f0faff;
+  --color-secondary-100: #d4f0fd;
+  --color-secondary-200: #a9e2fb;
+  --color-secondary-300: #6dcdf8;
+  --color-secondary-400: #48CAE4;
+  --color-secondary-500: #1db4d4;
+  --color-secondary-600: #1590b0;
+  --color-secondary-700: #12748e;
+  --color-secondary-800: #135f74;
+  --color-secondary-900: #144f61;
+
+  --color-neutral-50: #f8f9fa;
+  --color-neutral-100: #f1f3f5;
+  --color-neutral-200: #e9ecef;
+  --color-neutral-300: #dee2e6;
+  --color-neutral-400: #ced4da;
+  --color-neutral-500: #adb5bd;
+  --color-neutral-600: #868e96;
+  --color-neutral-700: #495057;
+  --color-neutral-800: #343a40;
+  --color-neutral-900: #212529;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -8,6 +43,6 @@
 
 body {
   font-family: system-ui, -apple-system, sans-serif;
-  background-color: #f8f9fa;
-  color: #212529;
+  background-color: var(--color-neutral-50);
+  color: var(--color-neutral-900);
 }
