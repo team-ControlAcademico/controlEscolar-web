@@ -1,5 +1,5 @@
-@import "tailwindcss";
-@import "./styles/variables.css";
+@import 'tailwindcss';
+@import './styles/variables.css';
 
 @theme {
   --color-primary-50: #f0f9f4;
@@ -7,7 +7,7 @@
   --color-primary-200: #b5e1ca;
   --color-primary-300: #84cba9;
   --color-primary-400: #53af85;
-  --color-primary-500: #2D6A4F;
+  --color-primary-500: #2d6a4f;
   --color-primary-600: #245941;
   --color-primary-700: #1e4836;
   --color-primary-800: #193a2d;
@@ -17,7 +17,7 @@
   --color-secondary-100: #d4f0fd;
   --color-secondary-200: #a9e2fb;
   --color-secondary-300: #6dcdf8;
-  --color-secondary-400: #48CAE4;
+  --color-secondary-400: #48cae4;
   --color-secondary-500: #1db4d4;
   --color-secondary-600: #1590b0;
   --color-secondary-700: #12748e;
@@ -53,6 +53,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-heading);
 }
