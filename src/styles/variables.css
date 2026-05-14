@@ -1,0 +1,9 @@
+:root {
+  --color-primary: #2D6A4F;
+  --color-secondary: #48CAE4;
+  --color-bg: #f8f9fa;
+  --color-text: #212529;
+  --color-text-muted: #868e96;
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-heading: 'Poppins', system-ui, -apple-system, sans-serif;
+}
