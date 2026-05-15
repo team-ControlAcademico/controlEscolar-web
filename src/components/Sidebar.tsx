@@ -41,9 +41,9 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
       }`}
     >
       {/* Logo */}
-      <div className="flex h-16 items-center gap-3 border-b border-neutral-100 px-4">
-        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-primary-500 to-primary-700 text-white shadow-md shadow-primary-500/25">
-          <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <div className="flex h-16 items-center gap-3 border-b border-neutral-100 px-5">
+        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-primary-500">
+          <svg className="h-5 w-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -53,7 +53,7 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
           </svg>
         </div>
         {!collapsed && (
-          <span className="font-heading text-lg font-bold tracking-tight text-neutral-900">
+          <span className="font-heading text-base font-semibold text-neutral-800">
             Control Escolar
           </span>
         )}
@@ -66,19 +66,14 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
             key={item.to}
             to={item.to}
             className={({ isActive }) =>
-              `group flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all ${
+              `group flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${
                 isActive
-                  ? 'bg-gradient-to-r from-primary-500 to-primary-600 text-white shadow-md shadow-primary-500/25'
-                  : 'text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900'
+                  ? 'bg-primary-500 text-white'
+                  : 'text-neutral-600 hover:bg-neutral-50 hover:text-neutral-900'
               }`
             }
           >
-            <svg
-              className={`h-5 w-5 shrink-0 ${'group-hover:text-primary-600'}`}
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
+            <svg className="h-5 w-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={item.icon} />
             </svg>
             {!collapsed && <span>{item.label}</span>}
@@ -90,7 +85,7 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
       <div className="border-t border-neutral-100 p-3">
         <button
           onClick={onToggle}
-          className="flex w-full items-center justify-center gap-2 rounded-xl px-3 py-2.5 text-sm font-medium text-neutral-500 transition-colors hover:bg-neutral-100 hover:text-neutral-700"
+          className="flex w-full items-center justify-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-neutral-400 transition-colors hover:bg-neutral-50 hover:text-neutral-600"
         >
           <svg
             className={`h-5 w-5 transition-transform duration-300 ${collapsed ? 'rotate-180' : ''}`}
