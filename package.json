@@ -11,6 +11,9 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "preview": "vite preview",
+    "docker:up": "docker compose up -d --build",
+    "docker:down": "docker compose down",
+    "docker:prod": "docker compose --profile prod up -d --build web-prod",
     "prepare": "husky"
   },
   "dependencies": {

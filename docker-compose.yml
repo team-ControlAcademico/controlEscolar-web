@@ -1,0 +1,31 @@
+services:
+  web:
+    build:
+      context: .
+      target: ${DOCKER_TARGET:-development}
+    container_name: controlescolar-web
+    restart: unless-stopped
+    ports:
+      - '${WEB_PORT:-5173}:5173'
+    env_file:
+      - .env
+    environment:
+      VITE_API_URL: ${VITE_API_URL:-http://localhost:3000/api}
+    volumes:
+      - .:/app
+      - web_node_modules:/app/node_modules
+
+  web-prod:
+    profiles: [prod]
+    build:
+      context: .
+      target: production
+      args:
+        VITE_API_URL: ${VITE_API_URL:-http://localhost:3000/api}
+    container_name: controlescolar-web-prod
+    restart: unless-stopped
+    ports:
+      - '${WEB_PORT:-8080}:80'
+
+volumes:
+  web_node_modules:
