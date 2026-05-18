@@ -1,17 +1,23 @@
 const API_URL = import.meta.env.VITE_API_URL || '/api';
 
+function getAuthHeaders(): Record<string, string> {
+  const token = localStorage.getItem('ce_token');
+  return token ? { Authorization: `Bearer ${token}` } : {};
+}
+
 async function request<T>(endpoint: string, options?: RequestInit): Promise<T> {
   const res = await fetch(`${API_URL}${endpoint}`, {
     headers: {
       'Content-Type': 'application/json',
+      ...getAuthHeaders(),
       ...options?.headers,
     },
     ...options,
   });
 
   if (!res.ok) {
-    const error = await res.json().catch(() => ({ message: 'Error desconocido' }));
-    throw new Error(error.message || `Error ${res.status}`);
+    const err = await res.json().catch(() => ({ message: 'Error desconocido' }));
+    throw new Error(err.message || `Error ${res.status}`);
   }
 
   return res.json();
