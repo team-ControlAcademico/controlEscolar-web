@@ -41,21 +41,15 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
       }`}
     >
       {/* Logo */}
-      <div className="flex h-16 items-center gap-3 border-b border-neutral-100 px-5">
-        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-primary-500">
-          <svg className="h-5 w-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
-            />
-          </svg>
-        </div>
-        {!collapsed && (
-          <span className="font-heading text-base font-semibold text-neutral-800">
-            Control Escolar
-          </span>
+      <div className="flex h-24 items-center justify-center border-b border-neutral-100 px-4 bg-white transition-all duration-300">
+        {collapsed ? (
+          <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-neutral-200 bg-white p-0.5">
+            <img src="/logo.png" alt="Educatrol Logo" className="h-full w-full object-contain" />
+          </div>
+        ) : (
+          <div className="flex h-20 w-full items-center justify-center overflow-hidden">
+            <img src="/logo.png" alt="Educatrol Logo" className="h-full w-auto object-contain" />
+          </div>
         )}
       </div>
 

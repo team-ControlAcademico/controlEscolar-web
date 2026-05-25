@@ -57,58 +57,39 @@ export function Login() {
       {/* Left panel — branding */}
       <div className="hidden flex-col justify-between bg-primary-700 p-12 lg:flex lg:w-5/12">
         <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/20">
-            <svg
-              className="h-6 w-6 text-white"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M12 14l9-5-9-5-9 5 9 5z M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"
-              />
-            </svg>
+          <div className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-xl border border-white/10 bg-white p-1.5">
+            <img src="/logo.png" alt="Educatrol Logo" className="h-full w-full object-contain" />
           </div>
-          <span className="font-heading text-xl font-semibold text-white">Control Escolar</span>
+          <span className="font-heading text-xl font-semibold tracking-wide text-white">Educatrol</span>
         </div>
 
-        <div>
-          <h1 className="font-heading text-4xl font-bold leading-tight text-white">
-            Gestiona tu institución de forma inteligente
-          </h1>
-          <p className="mt-4 text-lg text-primary-200">
-            Alumnos, calificaciones, asistencia y más — todo en un solo lugar.
-          </p>
+        <div className="flex flex-col items-center justify-center">
+          <div className="mb-8 w-64 rounded-2xl bg-white p-4 shadow-2xl border border-white/5 flex items-center justify-center overflow-hidden transition-transform duration-300 hover:scale-[1.03]">
+            <img src="/logo.png" alt="Educatrol Brand Logo" className="w-full h-auto object-contain" />
+          </div>
+          <div className="text-center">
+            <h1 className="font-heading text-3xl font-bold leading-tight text-white">
+              Gestiona tu institución de forma inteligente
+            </h1>
+            <p className="mt-4 text-base text-primary-200">
+              Alumnos, calificaciones, asistencia y más — todo en un solo lugar.
+            </p>
+          </div>
         </div>
 
-        <p className="text-sm text-primary-300">© {new Date().getFullYear()} Control Escolar</p>
+        <p className="text-sm text-primary-300">© {new Date().getFullYear()} Educatrol</p>
       </div>
 
       {/* Right panel — form */}
       <div className="flex flex-1 flex-col items-center justify-center p-8">
         <div className="w-full max-w-md">
           {/* Mobile logo */}
-          <div className="mb-8 flex items-center gap-2 lg:hidden">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary-600">
-              <svg
-                className="h-5 w-5 text-white"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 14l9-5-9-5-9 5 9 5z"
-                />
-              </svg>
+          <div className="mb-8 flex items-center gap-3 lg:hidden">
+            <div className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-lg border border-neutral-200 bg-white p-1">
+              <img src="/logo.png" alt="Educatrol Logo" className="h-full w-full object-contain" />
             </div>
-            <span className="font-heading text-lg font-semibold text-neutral-800">
-              Control Escolar
+            <span className="font-heading text-lg font-bold tracking-wide text-neutral-800">
+              Educatrol
             </span>
           </div>
 
