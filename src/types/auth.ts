@@ -7,6 +7,8 @@ export interface AuthUser {
   updatedAt: string;
 }
 
+export type Role = AuthUser['rol'];
+
 export interface AuthState {
   user: AuthUser | null;
   token: string | null;
