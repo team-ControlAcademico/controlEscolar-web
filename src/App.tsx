@@ -1,17 +1,20 @@
-import { Routes, Route } from 'react-router-dom';
-import { Layout } from './components/Layout';
-import { Dashboard } from './pages/Dashboard';
-import { Alumnos } from './pages/Alumnos';
+import { RouterProvider } from "react-router-dom";
+import { useEffect } from "react";
+import { router } from "@/router";
+import { useAuthStore } from "@/stores/auth.store";
+import { Toaster } from "@/components/ui/toaster";
 
-function App() {
+export default function App() {
+  const initialize = useAuthStore((state) => state.initialize);
+
+  useEffect(() => {
+    initialize();
+  }, [initialize]);
+
   return (
-    <Routes>
-      <Route element={<Layout />}>
-        <Route path="/" element={<Dashboard />} />
-        <Route path="/alumnos" element={<Alumnos />} />
-      </Route>
-    </Routes>
+    <>
+      <RouterProvider router={router} />
+      <Toaster />
+    </>
   );
 }
-
-export default App;
