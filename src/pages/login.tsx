@@ -62,7 +62,7 @@ export default function LoginPage() {
             {errors.password && <p className="text-sm text-destructive">{errors.password.message}</p>}
           </div>
           <div className="text-xs text-muted-foreground">
-            Demo: admin@universidad.mx / Admin123!
+            Credenciales de prueba en CREDENTIALS.md
           </div>
         </CardContent>
         <CardFooter className="flex flex-col gap-2">

@@ -1,6 +1,7 @@
 import { Outlet, useNavigate } from "react-router-dom";
 import { useAuthStore } from "@/stores/auth.store";
 import { Button } from "@/components/ui/button";
+import Sidebar from "./sidebar";
 import { GraduationCap, LogOut, User } from "lucide-react";
 
 const ROLE_LABELS: Record<string, string> = {
@@ -43,9 +44,12 @@ export default function DashboardLayout() {
           </div>
         </div>
       </header>
-      <main className="flex-1 p-4 md:p-6">
-        <Outlet />
-      </main>
+      <div className="flex flex-1">
+        <Sidebar />
+        <main className="flex-1 p-4 md:p-6 overflow-auto">
+          <Outlet />
+        </main>
+      </div>
     </div>
   );
 }

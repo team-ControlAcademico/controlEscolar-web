@@ -77,9 +77,9 @@ export default function DashboardPage() {
             <span className="text-lg">1/6</span>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">Infraestructura + Auth</div>
+            <div className="text-2xl font-bold">Gestión académica</div>
             <p className="text-xs text-muted-foreground mt-1">
-              Fase 1 de 6 completada
+              Fase 2 de 6 completada
             </p>
           </CardContent>
         </Card>

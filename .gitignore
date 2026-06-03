@@ -9,6 +9,9 @@ dist/
 .env.local
 .env.*.local
 
+# Credential files (sensitive)
+CREDENTIALS.md
+
 # IDE
 .vscode/
 .idea/
@@ -18,6 +21,7 @@ dist/
 # OS files
 .DS_Store
 Thumbs.db
+
 
 # Logs
 *.log
