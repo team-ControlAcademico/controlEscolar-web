@@ -68,7 +68,7 @@ React 19, Vite 6, TypeScript 5, Zustand 5, shadcn/ui, TailwindCSS 3, Express.js,
 
 ---
 
-## Fase 3 — Asistencia y Evaluación 📅
+## Fase 3 — Asistencia y Evaluación ✅ COMPLETADA
 
 **Objetivo:** Interfaces para control de asistencia, captura de calificaciones y lógica de promedios.
 
@@ -81,20 +81,20 @@ React 19, Vite 6, TypeScript 5, Zustand 5, shadcn/ui, TailwindCSS 3, Express.js,
 
 | Sprint | Semana | Área | Responsable | ID | Tarea | Entregable | Estado |
 |---|---|---|---|---|---|---|---|
-| Sprint 5 | Semana 5 | Frontend | Jhonatan | FRONT-09 | Interfaz Pasar Lista | Tabla enviando lote de asistencias | To Do |
-| Sprint 5 | Semana 5 | Frontend | Jhonatan | FRONT-10 | Historial Asistencia | Vista reflejando porcentajes | To Do |
-| Sprint 5 | Semana 5 | Backend | Edier | BACK-18 | Modelo Control Asistencia | Esquema para faltas por materia | To Do |
-| Sprint 5 | Semana 5 | Backend | Edier | BACK-19 | Inserción Masiva Batch | Endpoint procesando arrays rápidos | To Do |
-| Sprint 5 | Semana 5 | Backend | Edier | BACK-20 | API Estadísticas Faltas | Endpoint de alertas de riesgo | To Do |
-| Sprint 5 | Semana 5 | Backend | Edier | BACK-21 | Caché Redis Asistencia | Consultas respondiendo desde memoria | To Do |
-| Sprint 5 | Semana 5 | QA | Karlos | QA-05 | Pruebas Zonas Horarias | Registros consistentes con server | To Do |
-| Sprint 6 | Semana 6 | Frontend | Jhonatan | FRONT-11 | Captura Calificaciones | Matriz validando decimales/rango | To Do |
-| Sprint 6 | Semana 6 | Frontend | Jhonatan | FRONT-12 | Vista Boleta Estudiantil | Boleta con gráficas de desempeño | To Do |
-| Sprint 6 | Semana 6 | Backend | Edier | BACK-22 | Modelo Evaluaciones | Tabla de parciales y proyectos | To Do |
-| Sprint 6 | Semana 6 | Backend | Edier | BACK-23 | Controller Calificaciones | API rechazando datos inválidos | To Do |
-| Sprint 6 | Semana 6 | Backend | Edier | BACK-24 | Motor Promedios | Servicio aplicando redondeo | To Do |
-| Sprint 6 | Semana 6 | Backend | Edier | BACK-25 | Bloqueo Actas | API retornando error 423 Locked | To Do |
-| Sprint 6 | Semana 6 | Backend | Edier | BACK-26 | Generador Boletas asíncrono | Worker creando PDFs en background | To Do |
+| Sprint 5 | Semana 5 | Frontend | Jhonatan | FRONT-09 | Interfaz Pasar Lista | Tabla enviando lote de asistencias | Done |
+| Sprint 5 | Semana 5 | Frontend | Jhonatan | FRONT-10 | Historial Asistencia | Vista reflejando porcentajes | Done |
+| Sprint 5 | Semana 5 | Backend | Edier | BACK-18 | Modelo Control Asistencia | Esquema para faltas por materia | Done |
+| Sprint 5 | Semana 5 | Backend | Edier | BACK-19 | Inserción Masiva Batch | Endpoint procesando arrays rápidos | Done |
+| Sprint 5 | Semana 5 | Backend | Edier | BACK-20 | API Estadísticas Faltas | Endpoint de alertas de riesgo | Done |
+| Sprint 5 | Semana 5 | Backend | Edier | BACK-21 | Caché Redis Asistencia | Consultas respondiendo desde memoria | Done |
+| Sprint 5 | Semana 5 | QA | Karlos | QA-05 | Pruebas Zonas Horarias | Registros consistentes con server | Done |
+| Sprint 6 | Semana 6 | Frontend | Jhonatan | FRONT-11 | Captura Calificaciones | Matriz validando decimales/rango | Done |
+| Sprint 6 | Semana 6 | Frontend | Jhonatan | FRONT-12 | Vista Boleta Estudiantil | Boleta con gráficas de desempeño | Done |
+| Sprint 6 | Semana 6 | Backend | Edier | BACK-22 | Modelo Evaluaciones | Tabla de parciales y proyectos | Done |
+| Sprint 6 | Semana 6 | Backend | Edier | BACK-23 | Controller Calificaciones | API rechazando datos inválidos | Done |
+| Sprint 6 | Semana 6 | Backend | Edier | BACK-24 | Motor Promedios | Servicio aplicando redondeo | Done |
+| Sprint 6 | Semana 6 | Backend | Edier | BACK-25 | Bloqueo Actas | API retornando error 423 Locked | Done |
+| Sprint 6 | Semana 6 | Backend | Edier | BACK-26 | Generador Boletas asíncrono | Worker creando PDFs en background | Done |
 
 ---
 

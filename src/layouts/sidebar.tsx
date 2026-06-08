@@ -10,6 +10,8 @@ import {
   Users,
   ClipboardList,
   Clock,
+  ClipboardCheck,
+  FileText,
 } from "lucide-react";
 
 type NavItem = {
@@ -28,6 +30,7 @@ const NAV_ITEMS: NavItem[] = [
   { label: "Grupos", path: "/grupos", icon: <Users className="h-4 w-4" />, roles: ["ADMIN", "ESCOLAR", "DOCENTE"] },
   { label: "Inscripciones", path: "/inscripciones", icon: <ClipboardList className="h-4 w-4" />, roles: ["ADMIN", "ESCOLAR", "ADMINISTRATIVO"] },
   { label: "Mi Horario", path: "/mi-horario", icon: <Clock className="h-4 w-4" />, roles: ["ALUMNO"] },
+  { label: "Mis Calificaciones", path: "/mis-calificaciones", icon: <FileText className="h-4 w-4" />, roles: ["ALUMNO"] },
 ];
 
 export default function Sidebar() {
@@ -59,3 +62,4 @@ export default function Sidebar() {
     </aside>
   );
 }
+

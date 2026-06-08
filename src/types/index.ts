@@ -174,3 +174,72 @@ export interface AlumnoFull extends ProfileBase {
   carrera?: { id: string; clave: string; nombre: string } | null;
   inscripciones?: Inscripcion[];
 }
+
+// ─── FASE 3: Asistencia y Evaluación ───
+
+export interface Asistencia {
+  id: string;
+  alumnoId: string;
+  grupoId: string;
+  fecha: string;
+  presente: boolean;
+  justificacion: string | null;
+  alumno?: { id: string; nombre: string; matricula: string };
+  grupo?: {
+    id: string;
+    clave: string;
+    materia?: { id: string; clave: string; nombre: string };
+  };
+}
+
+export interface AsistenciaEstadistica {
+  alumnoId: string;
+  nombre: string;
+  matricula: string;
+  total: number;
+  presentes: number;
+  porcentaje: number;
+  enRiesgo: boolean;
+}
+
+export interface Calificacion {
+  id: string;
+  alumnoId: string;
+  grupoId: string;
+  unidad: number;
+  calificacion: number;
+  tipo: "ORDINARIO" | "EXTRAORDINARIO" | "TITULO";
+}
+
+export interface CalificacionAlumnoRow {
+  alumnoId: string;
+  nombre: string;
+  matricula: string;
+  unidades: Record<number, { calificacion: number; tipo: string }[]>;
+  promedio: number | null;
+}
+
+export interface CalificacionGrupoResult {
+  grupo: {
+    id: string;
+    clave: string;
+    materia: { id: string; clave: string; nombre: string };
+  };
+  alumnos: CalificacionAlumnoRow[];
+}
+
+export interface BoletaItem {
+  grupoId: string;
+  grupoClave: string;
+  materia: { id: string; clave: string; nombre: string; creditos: number };
+  docente: { id: string; nombre: string };
+  cicloEscolar: { id: string; nombre: string };
+  unidades: Record<number, { calificacion: number; tipo: string }[]>;
+  promedio: number | null;
+}
+
+export interface BoletaResult {
+  alumno: { id: string; nombre: string; matricula: string; semestre: number };
+  boleta: BoletaItem[];
+}
+

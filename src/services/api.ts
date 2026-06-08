@@ -1,5 +1,5 @@
 import api from "./client";
-import type { ApiResponse, Carrera, PlanEstudio, Materia, CicloEscolar, Grupo, Horario, Inscripcion, AlumnoFull, DocenteProfile, LoginInput, RegisterInput } from "@/types";
+import type { ApiResponse, Carrera, PlanEstudio, Materia, CicloEscolar, Grupo, Horario, Inscripcion, AlumnoFull, DocenteProfile, LoginInput, RegisterInput, Asistencia, AsistenciaEstadistica, CalificacionGrupoResult, BoletaResult } from "@/types";
 
 // ─── Auth ───
 export async function login(data: LoginInput) {
@@ -184,3 +184,47 @@ export async function getDocentes() {
   const { data } = await api.get<ApiResponse<DocenteProfile[]>>("/docentes");
   return data.data!;
 }
+
+// ─── Asistencia (Fase 3) ───
+export async function registrarAsistencia(grupoId: string, fecha: string, registros: { alumnoId: string; presente: boolean; justificacion?: string }[]) {
+  const { data } = await api.post<ApiResponse>(`/asistencias/grupo/${grupoId}`, { fecha, registros });
+  return data;
+}
+export async function getAsistenciaGrupo(grupoId: string, fecha?: string) {
+  const query = fecha ? `?fecha=${fecha}` : "";
+  const { data } = await api.get<ApiResponse<Asistencia[]>>(`/asistencias/grupo/${grupoId}${query}`);
+  return data.data!;
+}
+export async function getAsistenciaAlumno(alumnoId: string, grupoId?: string) {
+  const query = grupoId ? `?grupoId=${grupoId}` : "";
+  const { data } = await api.get<ApiResponse<Asistencia[]>>(`/asistencias/alumno/${alumnoId}${query}`);
+  return data.data!;
+}
+export async function getEstadisticasAsistencia(grupoId: string) {
+  const { data } = await api.get<ApiResponse<AsistenciaEstadistica[]>>(`/asistencias/grupo/${grupoId}/estadisticas`);
+  return data.data!;
+}
+export async function getFechasAsistencia(grupoId: string) {
+  const { data } = await api.get<ApiResponse<string[]>>(`/asistencias/grupo/${grupoId}/fechas`);
+  return data.data!;
+}
+
+// ─── Calificaciones (Fase 3) ───
+export async function registrarCalificaciones(grupoId: string, unidad: number, tipo: string, registros: { alumnoId: string; calificacion: number }[]) {
+  const { data } = await api.post<ApiResponse>(`/calificaciones/grupo/${grupoId}`, { unidad, tipo, registros });
+  return data;
+}
+export async function getCalificacionesGrupo(grupoId: string) {
+  const { data } = await api.get<ApiResponse<CalificacionGrupoResult>>(`/calificaciones/grupo/${grupoId}`);
+  return data.data!;
+}
+export async function getBoletaAlumno(alumnoId: string, cicloEscolarId?: string) {
+  const query = cicloEscolarId ? `?cicloEscolarId=${cicloEscolarId}` : "";
+  const { data } = await api.get<ApiResponse<BoletaResult>>(`/calificaciones/alumno/${alumnoId}/boleta${query}`);
+  return data.data!;
+}
+export async function getMisCalificaciones() {
+  const { data } = await api.get<ApiResponse<BoletaResult>>("/calificaciones/mis-calificaciones");
+  return data.data!;
+}
+

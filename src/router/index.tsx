@@ -12,6 +12,11 @@ import CiclosPage from "@/pages/ciclos";
 import GruposPage from "@/pages/grupos";
 import InscripcionesPage from "@/pages/inscripciones";
 import MiHorarioPage from "@/pages/mi-horario";
+import AsistenciaGrupoPage from "@/pages/asistencia-grupo";
+import AsistenciaAlumnoPage from "@/pages/asistencia-alumno";
+import CalificacionesGrupoPage from "@/pages/calificaciones-grupo";
+import BoletaAlumnoPage from "@/pages/boleta-alumno";
+import MisCalificacionesPage from "@/pages/mis-calificaciones";
 import { useAuthStore } from "@/stores/auth.store";
 
 function ProtectedRoute({ roles }: { roles?: string[] }) {
@@ -88,6 +93,8 @@ export const router = createBrowserRouter([
             element: <ProtectedRoute roles={["ADMIN", "ESCOLAR", "DOCENTE"]} />,
             children: [
               { path: "/grupos", element: <GruposPage /> },
+              { path: "/grupos/:id/asistencia", element: <AsistenciaGrupoPage /> },
+              { path: "/grupos/:id/calificaciones", element: <CalificacionesGrupoPage /> },
             ],
           },
           {
@@ -97,9 +104,17 @@ export const router = createBrowserRouter([
             ],
           },
           {
+            element: <ProtectedRoute roles={["ADMIN", "ESCOLAR", "DOCENTE", "ALUMNO", "PADRE"]} />,
+            children: [
+              { path: "/alumnos/:id/asistencia", element: <AsistenciaAlumnoPage /> },
+              { path: "/alumnos/:id/boleta", element: <BoletaAlumnoPage /> },
+            ],
+          },
+          {
             element: <ProtectedRoute roles={["ALUMNO"]} />,
             children: [
               { path: "/mi-horario", element: <MiHorarioPage /> },
+              { path: "/mis-calificaciones", element: <MisCalificacionesPage /> },
             ],
           },
         ],
@@ -111,3 +126,4 @@ export const router = createBrowserRouter([
     element: <Navigate to="/" replace />,
   },
 ]);
+

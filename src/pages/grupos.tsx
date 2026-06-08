@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import type { Grupo, Materia, CicloEscolar, DocenteProfile } from "@/types";
 import * as api from "@/services/api";
@@ -8,9 +9,14 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Plus, RefreshCw } from "lucide-react";
+import { Plus, RefreshCw, ClipboardCheck, FileText } from "lucide-react";
+import { useAuthStore } from "@/stores/auth.store";
 
 export default function GruposPage() {
+  const navigate = useNavigate();
+  const { user } = useAuthStore();
+  const isAdminOrEscolar = user?.role === "ADMIN" || user?.role === "ESCOLAR";
+
   const [grupos, setGrupos] = useState<Grupo[]>([]);
   const [materias, setMaterias] = useState<Materia[]>([]);
   const [ciclos, setCiclos] = useState<CicloEscolar[]>([]);
@@ -21,9 +27,14 @@ export default function GruposPage() {
 
   const load = async () => {
     try {
-      const [g, m, c, d] = await Promise.all([api.getGrupos(), api.getMaterias(), api.getCiclos(), api.getDocentes()]);
-      setGrupos(g); setMaterias(m); setCiclos(c); setDocentes(d);
-    } catch { toast.error("Error"); }
+      if (isAdminOrEscolar) {
+        const [g, m, c, d] = await Promise.all([api.getGrupos(), api.getMaterias(), api.getCiclos(), api.getDocentes()]);
+        setGrupos(g); setMaterias(m); setCiclos(c); setDocentes(d);
+      } else {
+        const g = await api.getGrupos({ docenteId: user?.docente?.id });
+        setGrupos(g);
+      }
+    } catch { toast.error("Error al cargar grupos"); }
     setLoading(false);
   };
   useEffect(() => { load(); }, []);
@@ -64,8 +75,20 @@ export default function GruposPage() {
       render: (g) => `${g._count?.inscripciones ?? 0}/${g.cupoMaximo}`,
     },
     {
-      key: "acciones", header: "",
-      render: (g) => <Button variant="destructive" size="sm" onClick={(e) => { e.stopPropagation(); handleDelete(g.id); }}>Eliminar</Button>,
+      key: "acciones", header: "Acciones",
+      render: (g) => (
+        <div className="flex gap-1">
+          <Button variant="outline" size="sm" onClick={(e) => { e.stopPropagation(); navigate(`/grupos/${g.id}/asistencia`); }} title="Pasar lista">
+            <ClipboardCheck className="h-3.5 w-3.5" />
+          </Button>
+          <Button variant="outline" size="sm" onClick={(e) => { e.stopPropagation(); navigate(`/grupos/${g.id}/calificaciones`); }} title="Calificaciones">
+            <FileText className="h-3.5 w-3.5" />
+          </Button>
+          {isAdminOrEscolar && (
+            <Button variant="destructive" size="sm" onClick={(e) => { e.stopPropagation(); handleDelete(g.id); }}>Eliminar</Button>
+          )}
+        </div>
+      ),
     },
   ];
 
@@ -77,11 +100,13 @@ export default function GruposPage() {
         <h1 className="text-2xl font-bold">Grupos</h1>
         <div className="flex gap-2">
           <Button variant="outline" size="icon" onClick={load}><RefreshCw className="h-4 w-4" /></Button>
-          <Button onClick={() => setShowForm(true)}><Plus className="h-4 w-4 mr-1" />Nuevo</Button>
+          {isAdminOrEscolar && (
+            <Button onClick={() => setShowForm(true)}><Plus className="h-4 w-4 mr-1" />Nuevo</Button>
+          )}
         </div>
       </div>
 
-      {showForm && (
+      {showForm && isAdminOrEscolar && (
         <Card>
           <CardHeader><CardTitle>Nuevo Grupo</CardTitle></CardHeader>
           <CardContent className="space-y-3">
