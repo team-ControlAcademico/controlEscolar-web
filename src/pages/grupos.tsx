@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Plus, RefreshCw, ClipboardCheck, FileText } from "lucide-react";
+import { Plus, RefreshCw, ClipboardCheck, FileText, Clock } from "lucide-react";
 import { useAuthStore } from "@/stores/auth.store";
 
 export default function GruposPage() {
@@ -85,7 +85,12 @@ export default function GruposPage() {
             <FileText className="h-3.5 w-3.5" />
           </Button>
           {isAdminOrEscolar && (
-            <Button variant="destructive" size="sm" onClick={(e) => { e.stopPropagation(); handleDelete(g.id); }}>Eliminar</Button>
+            <>
+              <Button variant="outline" size="sm" onClick={(e) => { e.stopPropagation(); navigate(`/grupos/${g.id}/horarios`); }} title="Horarios">
+                <Clock className="h-3.5 w-3.5" />
+              </Button>
+              <Button variant="destructive" size="sm" onClick={(e) => { e.stopPropagation(); handleDelete(g.id); }}>Eliminar</Button>
+            </>
           )}
         </div>
       ),

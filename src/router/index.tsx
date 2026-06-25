@@ -10,6 +10,7 @@ import PlanDetallePage from "@/pages/plan-detalle";
 import MateriasPage from "@/pages/materias";
 import CiclosPage from "@/pages/ciclos";
 import GruposPage from "@/pages/grupos";
+import HorariosGrupoPage from "@/pages/horarios-grupo";
 import InscripcionesPage from "@/pages/inscripciones";
 import MiHorarioPage from "@/pages/mi-horario";
 import AsistenciaGrupoPage from "@/pages/asistencia-grupo";
@@ -87,6 +88,7 @@ export const router = createBrowserRouter([
               { path: "/planes/:id", element: <PlanDetallePage /> },
               { path: "/materias", element: <MateriasPage /> },
               { path: "/ciclos", element: <CiclosPage /> },
+              { path: "/grupos/:id/horarios", element: <HorariosGrupoPage /> },
             ],
           },
           {

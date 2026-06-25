@@ -42,24 +42,24 @@ React 19, Vite 6, TypeScript 5, Zustand 5, shadcn/ui, TailwindCSS 3, Express.js,
 
 | Sprint | Semana | Área | Responsable | ID | Tarea | Entregable | Estado |
 |---|---|---|---|---|---|---|---|
-| Sprint 2 | Semana 2 | Frontend | Jhonatan | FRONT-03 | DashboardLayout y Rutas | Navegación segura según rol | To Do |
-| Sprint 2 | Semana 2 | Frontend | Jhonatan | FRONT-04 | CRUD Carreras | Página funcional con modales | To Do |
+| Sprint 2 | Semana 2 | Frontend | Jhonatan | FRONT-03 | DashboardLayout y Rutas | Navegación segura según rol | Done |
+| Sprint 2 | Semana 2 | Frontend | Jhonatan | FRONT-04 | CRUD Carreras | Página funcional con modales | Done |
 | Sprint 2 | Semana 2 | Backend | Edier | BACK-06 | Seeders Académicos | BD poblada con carreras base | To Do |
 | Sprint 2 | Semana 2 | Backend | Edier | BACK-07 | CRUD Controller Carreras | Endpoints REST funcionales | To Do |
 | Sprint 2 | Semana 2 | Backend | Edier | BACK-08 | Middleware Roles | Endpoints con validación 403 | To Do |
 | Sprint 2 | Semana 2 | Backend | Edier | BACK-09 | Recovery Password | Endpoint de tokens temporales | To Do |
 | Sprint 2 | Semana 2 | DevOps | Esteban | DB-02 | Migraciones Académicas | Esquema BD actualizado | To Do |
 | Sprint 2 | Semana 2 | QA | Karlos | QA-02 | Validaciones Seguridad | Pruebas de penetración sin fallos | To Do |
-| Sprint 3 | Semana 3 | Frontend | Jhonatan | FRONT-05 | Gestión Planes de Estudio | Interfaz con retícula de materias | To Do |
-| Sprint 3 | Semana 3 | Frontend | Jhonatan | FRONT-06 | CRUD Materias y Ciclos | Vistas operativas con Zod | To Do |
+| Sprint 3 | Semana 3 | Frontend | Jhonatan | FRONT-05 | Gestión Planes de Estudio | Interfaz con retícula de materias | Done |
+| Sprint 3 | Semana 3 | Frontend | Jhonatan | FRONT-06 | CRUD Materias y Ciclos | Vistas operativas con Zod | Done |
 | Sprint 3 | Semana 3 | Backend | Edier | BACK-10 | Modelos Planes y Materias | Modelos ORM relacionales | To Do |
 | Sprint 3 | Semana 3 | Backend | Edier | BACK-11 | Controllers Materias | Endpoints validando unicidad | To Do |
 | Sprint 3 | Semana 3 | Backend | Edier | BACK-12 | API Ciclos Escolares | Rutas POST/GET para ciclos | To Do |
 | Sprint 3 | Semana 3 | Backend | Edier | BACK-13 | Rate Limiter | API bloqueando ataques fuerza bruta | To Do |
 | Sprint 3 | Semana 3 | DevOps | Esteban | DB-03 | Tablas Puente | Migraciones pivote plan_materia | To Do |
 | Sprint 3 | Semana 3 | QA | Karlos | QA-03 | Pruebas Integridad | Bloqueo de borrado en cascada | To Do |
-| Sprint 4 | Semana 4 | Frontend | Jhonatan | FRONT-07 | Módulo Grupos | Tabla reflejando profesor y cupo | To Do |
-| Sprint 4 | Semana 4 | Frontend | Jhonatan | FRONT-08 | Interfaz Inscripción | Formulario procesando matrículas | To Do |
+| Sprint 4 | Semana 4 | Frontend | Jhonatan | FRONT-07 | Módulo Grupos | Tabla reflejando profesor y cupo + gestión de horarios | Done |
+| Sprint 4 | Semana 4 | Frontend | Jhonatan | FRONT-08 | Interfaz Inscripción | Formulario procesando matrículas | Done |
 | Sprint 4 | Semana 4 | Backend | Edier | BACK-14 | Modelos Grupos | Relaciones alumno_grupo | To Do |
 | Sprint 4 | Semana 4 | Backend | Edier | BACK-15 | Transacciones BD | Inscripciones con rollback seguro | To Do |
 | Sprint 4 | Semana 4 | Backend | Edier | BACK-16 | API Horarios | JSON cruzando datos de grupos/días | To Do |
