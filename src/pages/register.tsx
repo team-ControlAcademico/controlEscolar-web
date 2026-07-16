@@ -5,11 +5,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { toast } from "sonner";
 import { useAuthStore } from "@/stores/auth.store";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { UserPlus } from "lucide-react";
 import type { Role } from "@/types";
 
 const ROLE_OPTIONS: { value: Role; label: string }[] = [
@@ -39,6 +36,30 @@ const registerSchema = z.object({
 });
 
 type RegisterForm = z.infer<typeof registerSchema>;
+
+// Glassmorphism field component for reuse
+function GlassField({
+  label,
+  error,
+  children,
+}: {
+  label: string;
+  error?: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="space-y-1.5">
+      <label className="block text-xs font-semibold uppercase tracking-wider text-muted dark:text-white/70">
+        {label}
+      </label>
+      {children}
+      {error && <p className="text-xs text-red-500 dark:text-red-300">{error}</p>}
+    </div>
+  );
+}
+
+const glassInput =
+  "w-full rounded-lg border border-border dark:border-white/20 bg-background/60 dark:bg-white/10 backdrop-blur-sm px-3 py-2.5 text-sm text-foreground dark:text-white placeholder:text-muted/60 dark:placeholder:text-white/40 focus:border-primary dark:focus:border-white/50 focus:outline-none focus:ring-2 focus:ring-primary/20 dark:focus:ring-white/20 transition-colors";
 
 export default function RegisterPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -75,35 +96,47 @@ export default function RegisterPage() {
   };
 
   return (
-    <Card className="w-full max-w-md">
-      <CardHeader>
-        <CardTitle>Registro</CardTitle>
-        <CardDescription>Crea una cuenta en el sistema de control escolar</CardDescription>
-      </CardHeader>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <CardContent className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="email">Correo electrónico</Label>
-            <Input id="email" type="email" placeholder="correo@universidad.mx" {...register("email")} />
-            {errors.email && <p className="text-sm text-destructive">{errors.email.message}</p>}
-          </div>
+    <div className="w-full max-w-md animate-in fade-in zoom-in-95 duration-200 my-8">
+      <div className="rounded-2xl border border-border dark:border-white/20 bg-surface/75 dark:bg-white/10 backdrop-blur-md p-8 shadow-2xl">
+        <div className="mb-6">
+          <h2 className="font-heading text-2xl font-bold text-foreground dark:text-white">Registro</h2>
+          <p className="mt-1 text-sm text-muted dark:text-white/60">Crea una cuenta en el sistema de control escolar</p>
+        </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="password">Contraseña</Label>
-            <Input id="password" type="password" placeholder="••••••••" {...register("password")} />
-            {errors.password && <p className="text-sm text-destructive">{errors.password.message}</p>}
-          </div>
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          <GlassField label="Correo electrónico" error={errors.email?.message}>
+            <input
+              id="email"
+              type="email"
+              placeholder="correo@universidad.mx"
+              {...register("email")}
+              className={glassInput}
+            />
+          </GlassField>
 
-          <div className="space-y-2">
-            <Label htmlFor="confirmPassword">Confirmar contraseña</Label>
-            <Input id="confirmPassword" type="password" placeholder="••••••••" {...register("confirmPassword")} />
-            {errors.confirmPassword && <p className="text-sm text-destructive">{errors.confirmPassword.message}</p>}
-          </div>
+          <GlassField label="Contraseña" error={errors.password?.message}>
+            <input
+              id="password"
+              type="password"
+              placeholder="••••••••"
+              {...register("password")}
+              className={glassInput}
+            />
+          </GlassField>
 
-          <div className="space-y-2">
-            <Label>Rol</Label>
+          <GlassField label="Confirmar contraseña" error={errors.confirmPassword?.message}>
+            <input
+              id="confirmPassword"
+              type="password"
+              placeholder="••••••••"
+              {...register("confirmPassword")}
+              className={glassInput}
+            />
+          </GlassField>
+
+          <GlassField label="Rol" error={errors.role?.message}>
             <Select value={selectedRole} onValueChange={(v) => setValue("role", v as Role)}>
-              <SelectTrigger>
+              <SelectTrigger className="border-border dark:border-white/20 bg-background/60 dark:bg-white/10 backdrop-blur-sm text-foreground dark:text-white focus:ring-primary/20 dark:focus:ring-white/20 focus:border-primary dark:focus:border-white/50 [&>span]:text-foreground dark:[&>span]:text-white">
                 <SelectValue placeholder="Selecciona un rol" />
               </SelectTrigger>
               <SelectContent>
@@ -114,68 +147,103 @@ export default function RegisterPage() {
                 ))}
               </SelectContent>
             </Select>
-            {errors.role && <p className="text-sm text-destructive">{errors.role.message}</p>}
-          </div>
+          </GlassField>
 
-          <div className="space-y-2">
-            <Label htmlFor="nombre">Nombre completo</Label>
-            <Input id="nombre" placeholder="Nombre completo" {...register("nombre")} />
-            {errors.nombre && <p className="text-sm text-destructive">{errors.nombre.message}</p>}
-          </div>
+          <GlassField label="Nombre completo" error={errors.nombre?.message}>
+            <input
+              id="nombre"
+              placeholder="Nombre completo"
+              {...register("nombre")}
+              className={glassInput}
+            />
+          </GlassField>
 
-          <div className="space-y-2">
-            <Label htmlFor="curp">CURP (opcional)</Label>
-            <Input id="curp" placeholder="ABCD800101HDFRNN09" maxLength={18} {...register("curp")} />
-            {errors.curp && <p className="text-sm text-destructive">{errors.curp.message}</p>}
-          </div>
+          <GlassField label="CURP (opcional)" error={errors.curp?.message}>
+            <input
+              id="curp"
+              placeholder="ABCD800101HDFRNN09"
+              maxLength={18}
+              {...register("curp")}
+              className={glassInput}
+            />
+          </GlassField>
 
           {selectedRole === "ALUMNO" && (
             <>
-              <div className="space-y-2">
-                <Label htmlFor="matricula">Matrícula</Label>
-                <Input id="matricula" placeholder="Ej: 20240001" {...register("matricula")} />
-                {errors.matricula && <p className="text-sm text-destructive">{errors.matricula.message}</p>}
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="semestre">Semestre</Label>
-                <Input id="semestre" type="number" min={1} max={12} placeholder="1" {...register("semestre")} />
-                {errors.semestre && <p className="text-sm text-destructive">{errors.semestre.message}</p>}
-              </div>
+              <GlassField label="Matrícula" error={errors.matricula?.message}>
+                <input
+                  id="matricula"
+                  placeholder="Ej: 20240001"
+                  {...register("matricula")}
+                  className={glassInput}
+                />
+              </GlassField>
+              <GlassField label="Semestre" error={errors.semestre?.message}>
+                <input
+                  id="semestre"
+                  type="number"
+                  min={1}
+                  max={12}
+                  placeholder="1"
+                  {...register("semestre")}
+                  className={glassInput}
+                />
+              </GlassField>
             </>
           )}
 
           {selectedRole === "DOCENTE" && (
             <>
-              <div className="space-y-2">
-                <Label htmlFor="especialidad">Especialidad</Label>
-                <Input id="especialidad" placeholder="Matemáticas, Física..." {...register("especialidad")} />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="gradoAcademico">Grado académico</Label>
-                <Input id="gradoAcademico" placeholder="Licenciatura, Maestría, Doctorado" {...register("gradoAcademico")} />
-              </div>
+              <GlassField label="Especialidad">
+                <input
+                  id="especialidad"
+                  placeholder="Matemáticas, Física..."
+                  {...register("especialidad")}
+                  className={glassInput}
+                />
+              </GlassField>
+              <GlassField label="Grado académico">
+                <input
+                  id="gradoAcademico"
+                  placeholder="Licenciatura, Maestría, Doctorado"
+                  {...register("gradoAcademico")}
+                  className={glassInput}
+                />
+              </GlassField>
             </>
           )}
 
           {selectedRole === "ADMINISTRATIVO" && (
-            <div className="space-y-2">
-              <Label htmlFor="departamento">Departamento</Label>
-              <Input id="departamento" placeholder="Finanzas, RRHH..." {...register("departamento")} />
-            </div>
+            <GlassField label="Departamento">
+              <input
+                id="departamento"
+                placeholder="Finanzas, RRHH..."
+                {...register("departamento")}
+                className={glassInput}
+              />
+            </GlassField>
           )}
-        </CardContent>
-        <CardFooter className="flex flex-col gap-2">
-          <Button type="submit" className="w-full" disabled={isSubmitting}>
+
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="w-full flex items-center justify-center gap-2 rounded-lg bg-primary text-primary-foreground py-2.5 text-sm font-semibold shadow-lg hover:opacity-90 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-50 mt-2"
+          >
+            <UserPlus className="h-4 w-4" />
             {isSubmitting ? "Registrando..." : "Registrarse"}
-          </Button>
-          <p className="text-sm text-muted-foreground">
-            ¿Ya tienes cuenta?{" "}
-            <Link to="/login" className="text-primary hover:underline">
-              Iniciar sesión
-            </Link>
-          </p>
-        </CardFooter>
-      </form>
-    </Card>
+          </button>
+        </form>
+
+        <p className="mt-6 text-center text-sm text-muted dark:text-white/50">
+          ¿Ya tienes cuenta?{" "}
+          <Link
+            to="/login"
+            className="text-primary dark:text-white/80 hover:text-primary-foreground dark:hover:text-white underline underline-offset-2 transition-colors font-semibold"
+          >
+            Iniciar sesión
+          </Link>
+        </p>
+      </div>
+    </div>
   );
 }

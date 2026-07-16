@@ -1,53 +1,63 @@
 import type { Config } from "tailwindcss";
 
 export default {
-  darkMode: ["class"],
+  darkMode: "class",
   content: ["./index.html", "./src/**/*.{ts,tsx}"],
   theme: {
     extend: {
+      fontFamily: {
+        heading: ['Hammersmith One', 'sans-serif'],
+        body: ['Inria Sans', 'sans-serif'],
+      },
       colors: {
+        background: "hsl(var(--bg))",
+        foreground: "hsl(var(--fg))",
+        surface: "hsl(var(--bg-surface))",
         border: "hsl(var(--border))",
-        input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
-        background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
-        brand: {
-          DEFAULT: "hsl(var(--brand))",
-          foreground: "hsl(var(--brand-foreground))",
+        muted: {
+          DEFAULT: "hsl(var(--fg-muted))",
+          foreground: "hsl(var(--fg-muted))",
         },
         primary: {
           DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
+          foreground: "hsl(var(--primary-fg))",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
-          foreground: "hsl(var(--secondary-foreground))",
+          foreground: "hsl(var(--secondary-fg))",
         },
-        destructive: {
-          DEFAULT: "hsl(var(--destructive))",
-          foreground: "hsl(var(--destructive-foreground))",
-        },
-        muted: {
-          DEFAULT: "hsl(var(--muted))",
-          foreground: "hsl(var(--muted-foreground))",
-        },
-        accent: {
-          DEFAULT: "hsl(var(--accent))",
-          foreground: "hsl(var(--accent-foreground))",
+        // Keep shadcn compat
+        card: {
+          DEFAULT: "hsl(var(--bg-surface))",
+          foreground: "hsl(var(--fg))",
         },
         popover: {
-          DEFAULT: "hsl(var(--popover))",
-          foreground: "hsl(var(--popover-foreground))",
+          DEFAULT: "hsl(var(--bg-surface))",
+          foreground: "hsl(var(--fg))",
         },
-        card: {
-          DEFAULT: "hsl(var(--card))",
-          foreground: "hsl(var(--card-foreground))",
+        destructive: {
+          DEFAULT: "hsl(0 72% 51%)",
+          foreground: "hsl(0 0% 100%)",
         },
+        input: "hsl(var(--border))",
+        accent: {
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-fg))",
+        },
+        // Status colors
+        approved: "hsl(var(--approved))",
+        pending: "hsl(var(--pending))",
+        rejected: "hsl(var(--rejected))",
       },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+      },
+      boxShadow: {
+        'card': '0 1px 3px 0 rgba(0,0,0,.08), 0 1px 2px -1px rgba(0,0,0,.06)',
+        'card-hover': '0 10px 25px -3px rgba(0,0,0,.15), 0 4px 6px -4px rgba(0,0,0,.12)',
       },
     },
   },

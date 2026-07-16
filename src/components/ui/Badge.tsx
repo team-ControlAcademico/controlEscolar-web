@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 
-type Tone = 'primary' | 'secondary' | 'neutral' | 'success' | 'warning' | 'danger';
+type Tone = 'primary' | 'secondary' | 'neutral' | 'success' | 'warning' | 'danger' | 'active' | 'inactive';
 
 interface BadgeProps {
   tone?: Tone;
@@ -9,12 +9,14 @@ interface BadgeProps {
 }
 
 const toneClasses: Record<Tone, string> = {
-  primary: 'bg-primary-100 text-primary-700',
-  secondary: 'bg-secondary-100 text-secondary-700',
-  neutral: 'bg-neutral-100 text-neutral-600',
-  success: 'bg-emerald-100 text-emerald-700',
-  warning: 'bg-amber-100 text-amber-700',
-  danger: 'bg-red-100 text-red-700',
+  primary: 'bg-primary/15 text-primary',
+  secondary: 'bg-secondary/15 text-secondary',
+  neutral: 'bg-foreground/10 text-muted',
+  success: 'bg-approved/15 text-approved',
+  warning: 'bg-pending/15 text-pending',
+  danger: 'bg-rejected/15 text-rejected',
+  active: 'bg-approved/15 text-approved border border-approved/30',
+  inactive: 'bg-foreground/5 text-muted border border-border',
 };
 
 export function Badge({ tone = 'neutral', children, className = '' }: BadgeProps) {

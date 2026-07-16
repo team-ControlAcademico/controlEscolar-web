@@ -5,10 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { toast } from "sonner";
 import { useAuthStore } from "@/stores/auth.store";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Eye, EyeOff, LogIn } from "lucide-react";
 
 const loginSchema = z.object({
   email: z.string().email("Correo inválido"),
@@ -19,6 +16,7 @@ type LoginForm = z.infer<typeof loginSchema>;
 
 export default function LoginPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const { login } = useAuthStore();
   const navigate = useNavigate();
 
@@ -44,39 +42,76 @@ export default function LoginPage() {
   };
 
   return (
-    <Card className="w-full max-w-md">
-      <CardHeader>
-        <CardTitle>Iniciar Sesión</CardTitle>
-        <CardDescription>Ingresa tus credenciales para acceder al sistema</CardDescription>
-      </CardHeader>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <CardContent className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="email">Correo electrónico</Label>
-            <Input id="email" type="email" placeholder="correo@universidad.mx" {...register("email")} />
-            {errors.email && <p className="text-sm text-destructive">{errors.email.message}</p>}
+    <div className="w-full max-w-md animate-in fade-in zoom-in-95 duration-200">
+      <div className="rounded-2xl border border-border dark:border-white/20 bg-surface/75 dark:bg-white/10 backdrop-blur-md p-8 shadow-2xl">
+        <div className="mb-6">
+          <h2 className="font-heading text-2xl font-bold text-foreground dark:text-white">Iniciar Sesión</h2>
+          <p className="mt-1 text-sm text-muted dark:text-white/60">Ingresa tus credenciales para acceder al sistema</p>
+        </div>
+
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          {/* Email */}
+          <div className="space-y-1.5">
+            <label className="block text-xs font-semibold uppercase tracking-wider text-muted dark:text-white/70">
+              Correo electrónico
+            </label>
+            <input
+              id="email"
+              type="email"
+              placeholder="correo@universidad.mx"
+              {...register("email")}
+              className="w-full rounded-lg border border-border dark:border-white/20 bg-background/60 dark:bg-white/10 backdrop-blur-sm px-3 py-2.5 text-sm text-foreground dark:text-white placeholder:text-muted/60 dark:placeholder:text-white/40 focus:border-primary dark:focus:border-white/50 focus:outline-none focus:ring-2 focus:ring-primary/20 dark:focus:ring-white/20 transition-colors"
+            />
+            {errors.email && (
+              <p className="text-xs text-red-500 dark:text-red-300">{errors.email.message}</p>
+            )}
           </div>
-          <div className="space-y-2">
-            <Label htmlFor="password">Contraseña</Label>
-            <Input id="password" type="password" placeholder="••••••••" {...register("password")} />
-            {errors.password && <p className="text-sm text-destructive">{errors.password.message}</p>}
+
+          {/* Password */}
+          <div className="space-y-1.5">
+            <label className="block text-xs font-semibold uppercase tracking-wider text-muted dark:text-white/70">
+              Contraseña
+            </label>
+            <div className="relative">
+              <input
+                id="password"
+                type={showPassword ? "text" : "password"}
+                placeholder="••••••••"
+                {...register("password")}
+                className="w-full rounded-lg border border-border dark:border-white/20 bg-background/60 dark:bg-white/10 backdrop-blur-sm px-3 py-2.5 pr-10 text-sm text-foreground dark:text-white placeholder:text-muted/60 dark:placeholder:text-white/40 focus:border-primary dark:focus:border-white/50 focus:outline-none focus:ring-2 focus:ring-primary/20 dark:focus:ring-white/20 transition-colors"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(v => !v)}
+                className="absolute inset-y-0 right-3 flex items-center text-muted dark:text-white/50 hover:text-foreground dark:hover:text-white transition-colors"
+              >
+                {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+              </button>
+            </div>
+            {errors.password && (
+              <p className="text-xs text-red-500 dark:text-red-300">{errors.password.message}</p>
+            )}
           </div>
-          <div className="text-xs text-muted-foreground">
-            Credenciales de prueba en CREDENTIALS.md
-          </div>
-        </CardContent>
-        <CardFooter className="flex flex-col gap-2">
-          <Button type="submit" className="w-full" disabled={isSubmitting}>
+
+          <p className="text-xs text-muted dark:text-white/40">Credenciales de prueba en CREDENTIALS.md</p>
+
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="w-full flex items-center justify-center gap-2 rounded-lg bg-primary text-primary-foreground py-2.5 text-sm font-semibold shadow-lg hover:opacity-90 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-50 mt-2"
+          >
+            <LogIn className="h-4 w-4" />
             {isSubmitting ? "Cargando..." : "Iniciar Sesión"}
-          </Button>
-          <p className="text-sm text-muted-foreground">
-            ¿No tienes cuenta?{" "}
-            <Link to="/register" className="text-primary hover:underline">
-              Registrarse
-            </Link>
-          </p>
-        </CardFooter>
-      </form>
-    </Card>
+          </button>
+        </form>
+
+        <p className="mt-6 text-center text-sm text-muted dark:text-white/50">
+          ¿No tienes cuenta?{" "}
+          <Link to="/register" className="text-primary dark:text-white/80 hover:text-primary-foreground dark:hover:text-white underline underline-offset-2 transition-colors font-semibold">
+            Registrarse
+          </Link>
+        </p>
+      </div>
+    </div>
   );
 }

@@ -1,9 +1,9 @@
 import { useMemo, useState } from 'react';
 import { ChevronLeft, ChevronRight, Search, SlidersHorizontal } from 'lucide-react';
-import { Avatar } from '../ui/Avatar';
-import { Badge } from '../ui/Badge';
-import { Card, CardBody, CardHeader } from '../ui/Card';
-import { Input } from '../ui/Input';
+import { Avatar } from '@/components/ui/Avatar';
+import { Badge } from '@/components/ui/Badge';
+import { Card, CardBody, CardHeader } from '@/components/ui/Card';
+import { Input } from '@/components/ui/Input';
 import type { Student, StudentStatus } from '../../types/student';
 
 const PAGE_SIZE = 6;
