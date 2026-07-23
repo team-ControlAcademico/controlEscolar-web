@@ -1,6 +1,7 @@
 import { useAuthStore } from "@/stores/auth.store";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { GraduationCap } from "lucide-react";
+import { StatCard } from "@/components/ui/StatCard";
+import { WelcomeBanner } from "@/components/dashboard/WelcomeBanner";
+import { GraduationCap, Users, BookOpen, School } from "lucide-react";
 
 const ROLE_LABELS: Record<string, string> = {
   ADMIN: "Administrador",
@@ -22,8 +23,8 @@ const WELCOME_MESSAGES: Record<string, string> = {
 
 export default function DashboardPage() {
   const { user } = useAuthStore();
-
   const role = user?.role ?? "";
+
   const displayName =
     user?.admin?.nombre ||
     user?.escolar?.nombre ||
@@ -31,58 +32,47 @@ export default function DashboardPage() {
     user?.docente?.nombre ||
     user?.alumno?.nombre ||
     user?.padre?.nombre ||
-    user?.email;
+    user?.email ||
+    "Usuario";
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold tracking-tight">
-          Bienvenido, {displayName}
-        </h1>
-        <p className="text-muted-foreground mt-1">
-          {WELCOME_MESSAGES[role] ?? "Panel de control escolar"}
-        </p>
-      </div>
+      <WelcomeBanner
+        name={displayName}
+        subtitle={WELCOME_MESSAGES[role] ?? "Panel de control escolar"}
+        role={ROLE_LABELS[role]}
+      />
 
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Rol</CardTitle>
-            <GraduationCap className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{ROLE_LABELS[role]}</div>
-            <p className="text-xs text-muted-foreground mt-1">
-              {user?.email}
-            </p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Estado</CardTitle>
-            <div className={`h-3 w-3 rounded-full ${user?.isActive ? "bg-green-500" : "bg-red-500"}`} />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{user?.isActive ? "Activo" : "Inactivo"}</div>
-            <p className="text-xs text-muted-foreground mt-1">
-              Cuenta {user?.isActive ? "habilitada" : "deshabilitada"}
-            </p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Fase actual</CardTitle>
-            <span className="text-lg">1/6</span>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">Gestión académica</div>
-            <p className="text-xs text-muted-foreground mt-1">
-              Fase 2 de 6 completada
-            </p>
-          </CardContent>
-        </Card>
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <StatCard
+          icon={<GraduationCap className="h-6 w-6" />}
+          label="Rol actual"
+          value={ROLE_LABELS[role] ?? role}
+          hint={user?.email}
+          tone="primary"
+        />
+        <StatCard
+          icon={<Users className="h-6 w-6" />}
+          label="Estado de cuenta"
+          value={user?.isActive ? "Activo" : "Inactivo"}
+          hint={user?.isActive ? "Cuenta habilitada" : "Cuenta deshabilitada"}
+          tone="secondary"
+          trend={user?.isActive ? "up" : "down"}
+        />
+        <StatCard
+          icon={<BookOpen className="h-6 w-6" />}
+          label="Fase actual"
+          value="Fase 1"
+          hint="Gestión académica"
+          tone="primary"
+        />
+        <StatCard
+          icon={<School className="h-6 w-6" />}
+          label="Sistema"
+          value="Control Escolar"
+          hint="v1.0 · Ciclo activo"
+          tone="secondary"
+        />
       </div>
     </div>
   );

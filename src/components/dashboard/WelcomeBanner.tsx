@@ -1,47 +1,35 @@
-import { ArrowRight, FileBarChart, Users } from 'lucide-react';
+import { School } from 'lucide-react';
 
 interface WelcomeBannerProps {
   name: string;
   subtitle: string;
+  role?: string;
 }
 
-export function WelcomeBanner({ name, subtitle }: WelcomeBannerProps) {
+export function WelcomeBanner({ name, subtitle, role }: WelcomeBannerProps) {
   return (
-    <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary-500 via-primary-600 to-primary-800 p-8 text-white shadow-xl sm:p-10 lg:p-12">
-      <div className="absolute -right-16 -top-16 h-56 w-56 rounded-full bg-secondary-400/30 blur-3xl" />
-      <div className="absolute -bottom-12 -left-12 h-40 w-40 rounded-full bg-white/10 blur-2xl" />
-      <div className="absolute inset-y-0 right-0 hidden w-1/3 opacity-20 md:block">
-        <svg viewBox="0 0 200 200" className="h-full w-full" fill="none">
-          <circle cx="100" cy="100" r="60" stroke="white" strokeWidth="1.5" />
-          <circle cx="100" cy="100" r="90" stroke="white" strokeWidth="0.8" />
-          <circle cx="100" cy="100" r="30" stroke="white" strokeWidth="1.2" />
-        </svg>
+    <section className="relative overflow-hidden rounded-2xl p-8 text-white shadow-xl sm:p-10 lg:p-12"
+      style={{ background: 'linear-gradient(135deg, #0284C7 0%, #4F46E5 50%, #7C3AED 100%)' }}
+    >
+      {/* Decorative blobs */}
+      <div className="absolute -right-16 -top-16 h-56 w-56 rounded-full bg-white/10 blur-3xl" />
+      <div className="absolute -bottom-12 left-1/2 h-40 w-40 rounded-full bg-white/5 blur-2xl" />
+
+      {/* Icon top right */}
+      <div className="absolute top-6 right-6 opacity-20">
+        <School className="h-24 w-24" />
       </div>
+
       <div className="relative max-w-2xl">
-        <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-white/70">
-          Panel docente
-        </p>
-        <h2 className="font-heading text-4xl font-bold tracking-tight sm:text-5xl lg:text-[3.25rem]">
+        {role && (
+          <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-white/60">
+            {role}
+          </p>
+        )}
+        <h2 className="font-heading text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
           Hola, {name} 👋
         </h2>
-        <p className="mt-3 text-base text-white/80 sm:text-lg lg:text-xl">{subtitle}</p>
-        <div className="mt-6 flex flex-wrap gap-3">
-          <button
-            type="button"
-            className="inline-flex items-center gap-2 rounded-lg bg-white px-5 py-2.5 text-sm font-semibold text-primary-700 shadow-md transition-all hover:-translate-y-0.5 hover:shadow-lg"
-          >
-            <Users className="h-4 w-4" />
-            Ver alumnos
-          </button>
-          <button
-            type="button"
-            className="inline-flex items-center gap-2 rounded-lg border border-white/40 bg-transparent px-5 py-2.5 text-sm font-semibold text-white transition-all hover:bg-white/10"
-          >
-            <FileBarChart className="h-4 w-4" />
-            Generar reporte
-            <ArrowRight className="h-4 w-4" />
-          </button>
-        </div>
+        <p className="mt-3 text-base text-white/75 sm:text-lg">{subtitle}</p>
       </div>
     </section>
   );

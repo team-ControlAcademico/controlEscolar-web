@@ -40,7 +40,6 @@ export interface DataTableProps<T> {
 
   onRowClick?: (row: T) => void;
 
-  /** Server-side mode flags. When true, the component skips local filtering/paging. */
   serverSide?: boolean;
   total?: number;
   page?: number;
@@ -183,7 +182,7 @@ export function DataTable<T>({
         <div className="-mx-6 overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-y border-neutral-100 bg-neutral-50/60 text-left text-xs font-semibold uppercase tracking-wider text-neutral-500">
+              <tr className="border-y border-border bg-primary/5 text-left text-xs font-semibold uppercase tracking-wider text-primary">
                 {columns.map((col) => (
                   <th
                     key={col.key}
@@ -197,12 +196,12 @@ export function DataTable<T>({
                 ))}
               </tr>
             </thead>
-            <tbody className="divide-y divide-neutral-100">
+            <tbody className="divide-y divide-border">
               {loading ? (
                 <tr>
                   <td
                     colSpan={columns.length}
-                    className="px-7 py-12 text-center text-sm text-neutral-500"
+                    className="px-7 py-12 text-center text-sm text-muted"
                   >
                     {loadingMessage}
                   </td>
@@ -211,7 +210,7 @@ export function DataTable<T>({
                 <tr>
                   <td
                     colSpan={columns.length}
-                    className="px-7 py-12 text-center text-sm text-neutral-500"
+                    className="px-7 py-12 text-center text-sm text-muted"
                   >
                     {emptyMessage}
                   </td>
@@ -221,14 +220,14 @@ export function DataTable<T>({
                   <tr
                     key={rowKey(row)}
                     onClick={onRowClick ? () => onRowClick(row) : undefined}
-                    className={`transition-colors hover:bg-neutral-50 ${
+                    className={`transition-colors hover:bg-primary/5 ${
                       onRowClick ? 'cursor-pointer' : ''
                     }`}
                   >
                     {columns.map((col) => (
                       <td
                         key={col.key}
-                        className={`px-4 py-4 first:pl-7 last:pr-7 align-middle text-[15px] text-neutral-700 ${
+                        className={`px-4 py-4 first:pl-7 last:pr-7 align-middle text-[15px] text-foreground ${
                           ALIGN_CLASS[col.align ?? 'left']
                         } ${col.className ?? ''}`}
                       >
@@ -242,7 +241,7 @@ export function DataTable<T>({
           </table>
         </div>
 
-        <div className="mt-4 flex flex-col gap-3 text-xs text-neutral-500 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-4 flex flex-col gap-3 text-xs text-muted sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-3">
             <p>
               Mostrando {showFrom}–{showTo} de {total}
@@ -252,7 +251,7 @@ export function DataTable<T>({
               <select
                 value={pageSize}
                 onChange={(e) => handlePageSizeChange(Number(e.target.value))}
-                className="rounded-md border border-neutral-200 bg-white px-2 py-1 text-xs font-medium text-neutral-700 focus:outline-none focus:ring-2 focus:ring-primary-100"
+                className="rounded-lg border border-border bg-surface px-2 py-1 text-xs font-medium text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20"
               >
                 {pageSizeOptions.map((opt) => (
                   <option key={opt} value={opt}>
@@ -268,19 +267,19 @@ export function DataTable<T>({
               type="button"
               onClick={() => handlePageChange(safePage - 1)}
               disabled={safePage === 1}
-              className="rounded-md border border-neutral-200 bg-white p-1.5 text-neutral-600 transition-colors hover:bg-neutral-50 disabled:cursor-not-allowed disabled:opacity-40"
+              className="rounded-lg border border-border bg-surface p-1.5 text-foreground transition-colors hover:bg-primary/10 hover:text-primary hover:border-primary disabled:cursor-not-allowed disabled:opacity-40"
               aria-label="Página anterior"
             >
               <ChevronLeft className="h-4 w-4" />
             </button>
-            <span className="rounded-md bg-neutral-100 px-3 py-1.5 font-semibold text-neutral-700">
+            <span className="rounded-lg bg-primary/10 px-3 py-1.5 font-semibold text-primary">
               {safePage} / {totalPages}
             </span>
             <button
               type="button"
               onClick={() => handlePageChange(safePage + 1)}
               disabled={safePage === totalPages}
-              className="rounded-md border border-neutral-200 bg-white p-1.5 text-neutral-600 transition-colors hover:bg-neutral-50 disabled:cursor-not-allowed disabled:opacity-40"
+              className="rounded-lg border border-border bg-surface p-1.5 text-foreground transition-colors hover:bg-primary/10 hover:text-primary hover:border-primary disabled:cursor-not-allowed disabled:opacity-40"
               aria-label="Página siguiente"
             >
               <ChevronRight className="h-4 w-4" />

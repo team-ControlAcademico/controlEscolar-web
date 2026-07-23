@@ -1,4 +1,4 @@
-import { Card, CardBody, CardHeader } from '../ui/Card';
+import { Card, CardBody, CardHeader } from '@/components/ui/Card';
 
 interface GroupRow {
   name: string;
