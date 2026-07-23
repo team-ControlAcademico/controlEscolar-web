@@ -98,9 +98,11 @@ React 19, Vite 6, TypeScript 5, Zustand 5, shadcn/ui, TailwindCSS 3, Express.js,
 
 ---
 
-## Fase 4 — Finanzas 💰
+## Fase 4 — Finanzas 💰 ✅ COMPLETADA
 
 **Objetivo:** Interfaces de cobranza, pagos, facturación (CFDI) y estado de cuenta.
+
+> Páginas entregadas en `src/pages/finanzas/`: `colegiaturas`, `pagos`, `becas`, `facturas`, `estado-cuenta` (rol-consciente), `reportes`. Rutas `/finanzas/*` protegidas (ADMIN/ADMINISTRATIVO gestionan; ALUMNO/PADRE consultan `/finanzas/mi-estado-cuenta`). Navegación agregada al sidebar.
 
 ### Páginas y Componentes
 
@@ -111,15 +113,15 @@ React 19, Vite 6, TypeScript 5, Zustand 5, shadcn/ui, TailwindCSS 3, Express.js,
 
 | Sprint | Semana | Área | Responsable | ID | Tarea | Entregable | Estado |
 |---|---|---|---|---|---|---|---|
-| Sprint 7 | Semana 7 | Frontend | Jhonatan | FRONT-13 | Colegiaturas y Pagos | Catálogo de cuotas e interfaz cobro | To Do |
-| Sprint 7 | Semana 7 | Frontend | Jhonatan | FRONT-14 | Estados de Cuenta | Historial de movimientos claro | To Do |
+| Sprint 7 | Semana 7 | Frontend | Jhonatan | FRONT-13 | Colegiaturas y Pagos | Catálogo de cuotas e interfaz cobro | Done |
+| Sprint 7 | Semana 7 | Frontend | Jhonatan | FRONT-14 | Estados de Cuenta | Historial de movimientos claro | Done |
 | Sprint 7 | Semana 7 | Backend | Edier | BACK-27 | Modelos Financieros | Tablas decimales alta precisión | To Do |
 | Sprint 7 | Semana 7 | Backend | Edier | BACK-28 | Cargos Automáticos | Cron Job ejecutándose mensual | To Do |
 | Sprint 7 | Semana 7 | Backend | Edier | BACK-29 | API Transacciones | Saldo actualizándose en tiempo real | To Do |
 | Sprint 7 | Semana 7 | Backend | Edier | BACK-30 | Webhooks Pagos | Endpoint procesando firmas Stripe | To Do |
 | Sprint 7 | Semana 7 | QA | Karlos | QA-06 | Auditoría Decimales | Sumatorias cuadrando exactas | To Do |
-| Sprint 8 | Semana 8 | Frontend | Jhonatan | FRONT-15 | Gestión Becas | Interfaz para asignar descuentos | To Do |
-| Sprint 8 | Semana 8 | Frontend | Jhonatan | FRONT-16 | Panel Facturación CFDI | Visor PDF y descargas operando | To Do |
+| Sprint 8 | Semana 8 | Frontend | Jhonatan | FRONT-15 | Gestión Becas | Interfaz para asignar descuentos | Done |
+| Sprint 8 | Semana 8 | Frontend | Jhonatan | FRONT-16 | Panel Facturación CFDI | Visor PDF y descargas operando | Done |
 | Sprint 8 | Semana 8 | Backend | Edier | BACK-31 | Descuentos y Recargos | API calculando total dinámico | To Do |
 | Sprint 8 | Semana 8 | Backend | Edier | BACK-32 | Integración SAT | UUID y cadena original obtenida | To Do |
 | Sprint 8 | Semana 8 | Backend | Edier | BACK-33 | Generación XML/PDF | Archivos guardados en bucket | To Do |

@@ -18,6 +18,12 @@ import AsistenciaAlumnoPage from "@/pages/asistencia-alumno";
 import CalificacionesGrupoPage from "@/pages/calificaciones-grupo";
 import BoletaAlumnoPage from "@/pages/boleta-alumno";
 import MisCalificacionesPage from "@/pages/mis-calificaciones";
+import ColegiaturasPage from "@/pages/finanzas/colegiaturas";
+import PagosPage from "@/pages/finanzas/pagos";
+import BecasPage from "@/pages/finanzas/becas";
+import FacturasPage from "@/pages/finanzas/facturas";
+import EstadoCuentaPage from "@/pages/finanzas/estado-cuenta";
+import ReportesFinancierosPage from "@/pages/finanzas/reportes";
 import { useAuthStore } from "@/stores/auth.store";
 
 function ProtectedRoute({ roles }: { roles?: string[] }) {
@@ -110,6 +116,23 @@ export const router = createBrowserRouter([
             children: [
               { path: "/alumnos/:id/asistencia", element: <AsistenciaAlumnoPage /> },
               { path: "/alumnos/:id/boleta", element: <BoletaAlumnoPage /> },
+            ],
+          },
+          {
+            element: <ProtectedRoute roles={["ADMIN", "ADMINISTRATIVO"]} />,
+            children: [
+              { path: "/finanzas/colegiaturas", element: <ColegiaturasPage /> },
+              { path: "/finanzas/pagos", element: <PagosPage /> },
+              { path: "/finanzas/becas", element: <BecasPage /> },
+              { path: "/finanzas/facturas", element: <FacturasPage /> },
+              { path: "/finanzas/reportes", element: <ReportesFinancierosPage /> },
+              { path: "/finanzas/estado-cuenta", element: <EstadoCuentaPage /> },
+            ],
+          },
+          {
+            element: <ProtectedRoute roles={["ALUMNO", "PADRE"]} />,
+            children: [
+              { path: "/finanzas/mi-estado-cuenta", element: <EstadoCuentaPage /> },
             ],
           },
           {

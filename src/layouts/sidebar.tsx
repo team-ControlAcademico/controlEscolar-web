@@ -12,6 +12,11 @@ import {
   Clock,
   ClipboardCheck,
   FileText,
+  Wallet,
+  Receipt,
+  Award,
+  FileSpreadsheet,
+  BarChart3,
 } from "lucide-react";
 
 type NavItem = {
@@ -29,8 +34,15 @@ const NAV_ITEMS: NavItem[] = [
   { label: "Ciclos Escolares", path: "/ciclos", icon: <Calendar className="h-4 w-4" />, roles: ["ADMIN", "ESCOLAR"] },
   { label: "Grupos", path: "/grupos", icon: <Users className="h-4 w-4" />, roles: ["ADMIN", "ESCOLAR", "DOCENTE"] },
   { label: "Inscripciones", path: "/inscripciones", icon: <ClipboardList className="h-4 w-4" />, roles: ["ADMIN", "ESCOLAR", "ADMINISTRATIVO"] },
+  { label: "Colegiaturas", path: "/finanzas/colegiaturas", icon: <Wallet className="h-4 w-4" />, roles: ["ADMIN", "ADMINISTRATIVO"] },
+  { label: "Pagos", path: "/finanzas/pagos", icon: <Receipt className="h-4 w-4" />, roles: ["ADMIN", "ADMINISTRATIVO"] },
+  { label: "Becas", path: "/finanzas/becas", icon: <Award className="h-4 w-4" />, roles: ["ADMIN", "ADMINISTRATIVO"] },
+  { label: "Facturación", path: "/finanzas/facturas", icon: <FileSpreadsheet className="h-4 w-4" />, roles: ["ADMIN", "ADMINISTRATIVO"] },
+  { label: "Estado de Cuenta", path: "/finanzas/estado-cuenta", icon: <FileText className="h-4 w-4" />, roles: ["ADMIN", "ADMINISTRATIVO"] },
+  { label: "Reportes Financieros", path: "/finanzas/reportes", icon: <BarChart3 className="h-4 w-4" />, roles: ["ADMIN", "ADMINISTRATIVO"] },
   { label: "Mi Horario", path: "/mi-horario", icon: <Clock className="h-4 w-4" />, roles: ["ALUMNO"] },
   { label: "Mis Calificaciones", path: "/mis-calificaciones", icon: <FileText className="h-4 w-4" />, roles: ["ALUMNO"] },
+  { label: "Mi Estado de Cuenta", path: "/finanzas/mi-estado-cuenta", icon: <Wallet className="h-4 w-4" />, roles: ["ALUMNO", "PADRE"] },
 ];
 
 export default function Sidebar() {
