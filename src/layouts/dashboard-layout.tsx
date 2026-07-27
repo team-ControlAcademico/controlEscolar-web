@@ -11,6 +11,11 @@ import {
   ClipboardList,
   Clock,
   FileText,
+  Wallet,
+  Receipt,
+  Award,
+  FileSpreadsheet,
+  BarChart3,
   LogOut,
   User,
   Sun,
@@ -34,8 +39,15 @@ const NAV_ITEMS: NavItem[] = [
   { label: "CICLOS ESCOLARES", path: "/ciclos", icon: <Calendar className="h-4 w-4" />, roles: ["ADMIN", "ESCOLAR"] },
   { label: "GRUPOS", path: "/grupos", icon: <Users className="h-4 w-4" />, roles: ["ADMIN", "ESCOLAR", "DOCENTE"] },
   { label: "INSCRIPCIONES", path: "/inscripciones", icon: <ClipboardList className="h-4 w-4" />, roles: ["ADMIN", "ESCOLAR", "ADMINISTRATIVO"] },
+  { label: "COLEGIATURAS", path: "/finanzas/colegiaturas", icon: <Wallet className="h-4 w-4" />, roles: ["ADMIN", "ADMINISTRATIVO"] },
+  { label: "PAGOS", path: "/finanzas/pagos", icon: <Receipt className="h-4 w-4" />, roles: ["ADMIN", "ADMINISTRATIVO"] },
+  { label: "BECAS", path: "/finanzas/becas", icon: <Award className="h-4 w-4" />, roles: ["ADMIN", "ADMINISTRATIVO"] },
+  { label: "FACTURACIÓN", path: "/finanzas/facturas", icon: <FileSpreadsheet className="h-4 w-4" />, roles: ["ADMIN", "ADMINISTRATIVO"] },
+  { label: "ESTADO DE CUENTA", path: "/finanzas/estado-cuenta", icon: <FileText className="h-4 w-4" />, roles: ["ADMIN", "ADMINISTRATIVO"] },
+  { label: "REPORTES FINANCIEROS", path: "/finanzas/reportes", icon: <BarChart3 className="h-4 w-4" />, roles: ["ADMIN", "ADMINISTRATIVO"] },
   { label: "MI HORARIO", path: "/mi-horario", icon: <Clock className="h-4 w-4" />, roles: ["ALUMNO"] },
   { label: "MIS CALIFICACIONES", path: "/mis-calificaciones", icon: <FileText className="h-4 w-4" />, roles: ["ALUMNO"] },
+  { label: "MI ESTADO DE CUENTA", path: "/finanzas/mi-estado-cuenta", icon: <Wallet className="h-4 w-4" />, roles: ["ALUMNO", "PADRE"] },
 ];
 
 const ROLE_LABELS: Record<string, string> = {

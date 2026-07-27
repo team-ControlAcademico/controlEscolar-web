@@ -1,5 +1,5 @@
 import api from "./client";
-import type { ApiResponse, Carrera, PlanEstudio, Materia, CicloEscolar, Grupo, Horario, Inscripcion, AlumnoFull, DocenteProfile, LoginInput, RegisterInput, Asistencia, AsistenciaEstadistica, CalificacionGrupoResult, BoletaResult } from "@/types";
+import type { ApiResponse, Carrera, PlanEstudio, Materia, CicloEscolar, Grupo, Horario, Inscripcion, AlumnoFull, DocenteProfile, LoginInput, RegisterInput, Asistencia, AsistenciaEstadistica, CalificacionGrupoResult, BoletaResult, Colegiatura, Pago, Beca, Descuento, Factura, EstadoCuenta, ReporteFinanciero } from "@/types";
 
 // ─── Auth ───
 export async function login(data: LoginInput) {
@@ -225,6 +225,122 @@ export async function getBoletaAlumno(alumnoId: string, cicloEscolarId?: string)
 }
 export async function getMisCalificaciones() {
   const { data } = await api.get<ApiResponse<BoletaResult>>("/calificaciones/mis-calificaciones");
+  return data.data!;
+}
+
+// ─── FASE 4: Finanzas ───
+
+// Colegiaturas
+export async function getColegiaturas(params?: { alumnoId?: string; cicloEscolarId?: string; estatus?: string }) {
+  const query = new URLSearchParams();
+  if (params?.alumnoId) query.append("alumnoId", params.alumnoId);
+  if (params?.cicloEscolarId) query.append("cicloEscolarId", params.cicloEscolarId);
+  if (params?.estatus) query.append("estatus", params.estatus);
+  const { data } = await api.get<ApiResponse<Colegiatura[]>>(`/finanzas/colegiaturas?${query}`);
+  return data.data!;
+}
+export async function createColegiatura(body: Partial<Colegiatura> & { alumnoId: string; cicloEscolarId: string }) {
+  const { data } = await api.post<ApiResponse<Colegiatura>>("/finanzas/colegiaturas", body);
+  return data.data!;
+}
+export async function updateColegiatura(id: string, body: Partial<Colegiatura>) {
+  const { data } = await api.put<ApiResponse<Colegiatura>>(`/finanzas/colegiaturas/${id}`, body);
+  return data.data!;
+}
+export async function deleteColegiatura(id: string) {
+  await api.delete(`/finanzas/colegiaturas/${id}`);
+}
+export async function generarCargos(body: { cicloEscolarId: string; concepto: string; monto: number; fechaVencimiento: string }) {
+  const { data } = await api.post<ApiResponse<{ creados: number; omitidos: number; totalAlumnos: number }>>("/finanzas/colegiaturas/generar", body);
+  return data.data!;
+}
+
+// Pagos
+export async function getPagos(params?: { alumnoId?: string; colegiaturaId?: string }) {
+  const query = new URLSearchParams();
+  if (params?.alumnoId) query.append("alumnoId", params.alumnoId);
+  if (params?.colegiaturaId) query.append("colegiaturaId", params.colegiaturaId);
+  const { data } = await api.get<ApiResponse<Pago[]>>(`/finanzas/pagos?${query}`);
+  return data.data!;
+}
+export async function registrarPago(body: { colegiaturaId: string; monto: number; metodo: string; referencia?: string }) {
+  const { data } = await api.post<ApiResponse<Pago>>("/finanzas/pagos", body);
+  return data.data!;
+}
+export async function cancelarPago(id: string) {
+  const { data } = await api.patch<ApiResponse>(`/finanzas/pagos/${id}/cancelar`);
+  return data;
+}
+
+// Becas
+export async function getBecas(params?: { alumnoId?: string }) {
+  const query = new URLSearchParams();
+  if (params?.alumnoId) query.append("alumnoId", params.alumnoId);
+  const { data } = await api.get<ApiResponse<Beca[]>>(`/finanzas/becas?${query}`);
+  return data.data!;
+}
+export async function createBeca(body: Partial<Beca> & { alumnoId: string }) {
+  const { data } = await api.post<ApiResponse<Beca>>("/finanzas/becas", body);
+  return data.data!;
+}
+export async function updateBeca(id: string, body: Partial<Beca>) {
+  const { data } = await api.put<ApiResponse<Beca>>(`/finanzas/becas/${id}`, body);
+  return data.data!;
+}
+export async function deleteBeca(id: string) {
+  await api.delete(`/finanzas/becas/${id}`);
+}
+
+// Descuentos
+export async function getDescuentos() {
+  const { data } = await api.get<ApiResponse<Descuento[]>>("/finanzas/descuentos");
+  return data.data!;
+}
+export async function createDescuento(body: Partial<Descuento>) {
+  const { data } = await api.post<ApiResponse<Descuento>>("/finanzas/descuentos", body);
+  return data.data!;
+}
+export async function updateDescuento(id: string, body: Partial<Descuento>) {
+  const { data } = await api.put<ApiResponse<Descuento>>(`/finanzas/descuentos/${id}`, body);
+  return data.data!;
+}
+export async function deleteDescuento(id: string) {
+  await api.delete(`/finanzas/descuentos/${id}`);
+}
+
+// Facturas (CFDI)
+export async function getFacturas(params?: { estatus?: string }) {
+  const query = new URLSearchParams();
+  if (params?.estatus) query.append("estatus", params.estatus);
+  const { data } = await api.get<ApiResponse<Factura[]>>(`/finanzas/facturas?${query}`);
+  return data.data!;
+}
+export async function getFactura(id: string, incluirXml = false) {
+  const query = incluirXml ? "?xml=true" : "";
+  const { data } = await api.get<ApiResponse<Factura>>(`/finanzas/facturas/${id}${query}`);
+  return data.data!;
+}
+export async function generarFactura(body: { pagoId: string; rfcReceptor: string; razonSocial: string; usoCfdi?: string }) {
+  const { data } = await api.post<ApiResponse<Factura>>("/finanzas/facturas", body);
+  return data.data!;
+}
+export async function cancelarFactura(id: string) {
+  const { data } = await api.patch<ApiResponse<Factura>>(`/finanzas/facturas/${id}/cancelar`);
+  return data.data!;
+}
+
+// Estado de cuenta y reportes
+export async function getEstadoCuenta(alumnoId: string) {
+  const { data } = await api.get<ApiResponse<EstadoCuenta>>(`/finanzas/estado-cuenta/${alumnoId}`);
+  return data.data!;
+}
+export async function getMiEstadoCuenta() {
+  const { data } = await api.get<ApiResponse<EstadoCuenta>>("/finanzas/mi-estado-cuenta");
+  return data.data!;
+}
+export async function getReporteFinanciero(cicloEscolarId?: string) {
+  const query = cicloEscolarId ? `?cicloEscolarId=${cicloEscolarId}` : "";
+  const { data } = await api.get<ApiResponse<ReporteFinanciero>>(`/finanzas/reportes${query}`);
   return data.data!;
 }
 

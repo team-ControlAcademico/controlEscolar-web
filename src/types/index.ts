@@ -243,3 +243,108 @@ export interface BoletaResult {
   boleta: BoletaItem[];
 }
 
+// ─── FASE 4: Finanzas ───
+// Los montos llegan como string porque Prisma serializa Decimal así (precisión).
+
+export interface Colegiatura {
+  id: string;
+  concepto: string;
+  monto: string;
+  descuento: string;
+  recargo: string;
+  total: string;
+  fechaVencimiento: string;
+  estatus: string;
+  alumnoId?: string;
+  alumno?: { id: string; nombre: string; matricula: string };
+  cicloEscolar?: { id: string; nombre: string };
+  pagos?: Pago[];
+  _count?: { pagos: number };
+}
+
+export interface Pago {
+  id: string;
+  monto: string;
+  fecha: string;
+  metodo: string;
+  referencia: string | null;
+  estatus: string;
+  colegiaturaId?: string;
+  alumnoId?: string;
+  alumno?: { id: string; nombre: string; matricula: string };
+  colegiatura?: { id: string; concepto: string; total: string };
+  factura?: { id: string; cfdiUuid: string; estatus: string } | null;
+}
+
+export interface Beca {
+  id: string;
+  tipo: string;
+  porcentaje: string;
+  descripcion: string | null;
+  vigenciaInicio: string;
+  vigenciaFin: string;
+  activa: boolean;
+  alumnoId?: string;
+  alumno?: { id: string; nombre: string; matricula: string };
+}
+
+export interface Descuento {
+  id: string;
+  concepto: string;
+  tipo: string;
+  valor: string;
+  descripcion: string | null;
+  activo: boolean;
+}
+
+export interface Factura {
+  id: string;
+  cfdiUuid: string;
+  serie: string;
+  folio: number;
+  rfcReceptor: string;
+  razonSocial: string;
+  usoCfdi: string;
+  subtotal: string;
+  iva: string;
+  total: string;
+  estatus: string;
+  createdAt: string;
+  cadenaOriginal?: string | null;
+  selloDigital?: string | null;
+  xmlData?: string;
+  pago?: {
+    id: string;
+    monto: string;
+    fecha: string;
+    alumno?: { id: string; nombre: string; matricula: string };
+  };
+}
+
+export interface EstadoCuentaMovimiento {
+  id: string;
+  concepto: string;
+  cicloEscolar: { id: string; nombre: string };
+  monto: string;
+  descuento: string;
+  recargo: string;
+  total: string;
+  pagado: string;
+  saldo: string;
+  fechaVencimiento: string;
+  estatus: string;
+  pagos: { id: string; monto: string; fecha: string; metodo: string; estatus: string }[];
+}
+
+export interface EstadoCuenta {
+  alumno: { id: string; nombre: string; matricula: string; semestre: number };
+  resumen: { totalCargado: string; totalPagado: string; saldoTotal: string };
+  movimientos: EstadoCuentaMovimiento[];
+  becas: { id: string; tipo: string; porcentaje: string; vigenciaInicio: string; vigenciaFin: string }[];
+}
+
+export interface ReporteFinanciero {
+  resumen: { totalIngresos: string; totalCartera: string; carteraVencida: string; alumnosConAdeudo: number };
+  porCiclo: { cicloEscolarId: string; ciclo: string; ingresos: string; cartera: string }[];
+}
+
