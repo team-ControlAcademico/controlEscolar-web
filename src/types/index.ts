@@ -348,3 +348,105 @@ export interface ReporteFinanciero {
   porCiclo: { cicloEscolarId: string; ciclo: string; ingresos: string; cartera: string }[];
 }
 
+// ─── FASE 5: Comunicación y Portales ───
+
+export interface Aviso {
+  id: string;
+  titulo: string;
+  contenido: string;
+  tipo: string;
+  rolesDestino: string[];
+  fechaExpiracion: string | null;
+  activo: boolean;
+  createdAt: string;
+  autor?: { id: string; email: string; role: string };
+  _count?: { leidos: number };
+  leido?: boolean;
+  leidoAt?: string | null;
+}
+
+export interface Conversacion {
+  id: string;
+  updatedAt: string;
+  otro: UsuarioDisponible;
+  ultimoMensaje: {
+    id: string;
+    contenido: string;
+    createdAt: string;
+    esMio: boolean;
+  } | null;
+  noLeidos: number;
+}
+
+export interface Mensaje {
+  id: string;
+  contenido: string;
+  createdAt: string;
+  leidoAt: string | null;
+  remitente: UsuarioDisponible;
+  esMio: boolean;
+}
+
+export interface UsuarioDisponible {
+  id: string;
+  email: string;
+  role: string;
+  nombre: string;
+}
+
+export interface PortalAlumnoData {
+  alumno: {
+    id: string;
+    nombre: string;
+    matricula: string;
+    semestre: number;
+    estatus: string;
+    carrera: { id: string; clave: string; nombre: string } | null;
+  };
+  cicloActivo: { id: string; nombre: string } | null;
+  inscripciones: {
+    grupoId: string;
+    materia: { id: string; clave: string; nombre: string; creditos: number };
+    docente: { id: string; nombre: string };
+    horarios: Horario[];
+  }[];
+  promedioGeneral: number | null;
+  saldoPendiente: string;
+  colegiaturasPendientes: number;
+  avisosNoLeidos: number;
+  mensajesNoLeidos: number;
+}
+
+export interface PortalDocenteData {
+  docente: { id: string; nombre: string; especialidad: string | null };
+  cicloActivo: { id: string; nombre: string } | null;
+  grupos: {
+    id: string;
+    clave: string;
+    materia: { id: string; clave: string; nombre: string };
+    aula: string | null;
+    horarios: Horario[];
+    inscritos: number;
+    cupoMaximo: number;
+  }[];
+  avisosPublicados: number;
+  avisosNoLeidos: number;
+  mensajesNoLeidos: number;
+}
+
+export interface PortalPadreData {
+  padre: { id: string; nombre: string };
+  hijo: {
+    id: string;
+    nombre: string;
+    matricula: string;
+    semestre: number;
+    estatus: string;
+    carrera: { id: string; clave: string; nombre: string } | null;
+    promedio: number | null;
+    saldoPendiente: string;
+    colegiaturasPendientes: number;
+  } | null;
+  avisosNoLeidos: number;
+  mensajesNoLeidos: number;
+}

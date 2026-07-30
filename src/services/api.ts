@@ -1,5 +1,5 @@
 import api from "./client";
-import type { ApiResponse, Carrera, PlanEstudio, Materia, CicloEscolar, Grupo, Horario, Inscripcion, AlumnoFull, DocenteProfile, LoginInput, RegisterInput, Asistencia, AsistenciaEstadistica, CalificacionGrupoResult, BoletaResult, Colegiatura, Pago, Beca, Descuento, Factura, EstadoCuenta, ReporteFinanciero } from "@/types";
+import type { ApiResponse, Carrera, PlanEstudio, Materia, CicloEscolar, Grupo, Horario, Inscripcion, AlumnoFull, DocenteProfile, LoginInput, RegisterInput, Asistencia, AsistenciaEstadistica, CalificacionGrupoResult, BoletaResult, Colegiatura, Pago, Beca, Descuento, Factura, EstadoCuenta, ReporteFinanciero, Aviso, Conversacion, Mensaje, UsuarioDisponible, PortalAlumnoData, PortalDocenteData, PortalPadreData } from "@/types";
 
 // ─── Auth ───
 export async function login(data: LoginInput) {
@@ -344,3 +344,68 @@ export async function getReporteFinanciero(cicloEscolarId?: string) {
   return data.data!;
 }
 
+// ─── FASE 5: Avisos ───
+
+export async function getAvisos(params?: { tipo?: string }) {
+  const query = new URLSearchParams();
+  if (params?.tipo) query.append("tipo", params.tipo);
+  const { data } = await api.get<ApiResponse<Aviso[]>>(`/comunicacion/avisos?${query}`);
+  return data.data!;
+}
+export async function crearAviso(body: { titulo: string; contenido: string; tipo: string; rolesDestino: string[]; fechaExpiracion?: string }) {
+  const { data } = await api.post<ApiResponse<Aviso>>("/comunicacion/avisos", body);
+  return data.data!;
+}
+export async function eliminarAviso(id: string) {
+  await api.delete(`/comunicacion/avisos/${id}`);
+}
+export async function marcarAvisoLeido(id: string) {
+  const { data } = await api.post<ApiResponse>(`/comunicacion/avisos/${id}/leido`);
+  return data;
+}
+export async function getMisAvisos() {
+  const { data } = await api.get<ApiResponse<Aviso[]>>("/comunicacion/mis-avisos");
+  return data.data!;
+}
+export async function getContadorNoLeidos() {
+  const { data } = await api.get<ApiResponse<{ count: number }>>("/comunicacion/mis-avisos/no-leidos");
+  return data.data!;
+}
+
+// ─── FASE 5: Mensajería ───
+
+export async function getConversaciones() {
+  const { data } = await api.get<ApiResponse<Conversacion[]>>("/mensajeria/conversaciones");
+  return data.data!;
+}
+export async function crearConversacion(participanteId: string) {
+  const { data } = await api.post<ApiResponse<Conversacion>>("/mensajeria/conversaciones", { participanteId });
+  return data.data!;
+}
+export async function getMensajes(conversacionId: string) {
+  const { data } = await api.get<ApiResponse<Mensaje[]>>(`/mensajeria/conversaciones/${conversacionId}/mensajes`);
+  return data.data!;
+}
+export async function enviarMensaje(conversacionId: string, contenido: string) {
+  const { data } = await api.post<ApiResponse<Mensaje>>(`/mensajeria/conversaciones/${conversacionId}/mensajes`, { contenido });
+  return data.data!;
+}
+export async function getUsuariosDisponibles() {
+  const { data } = await api.get<ApiResponse<UsuarioDisponible[]>>("/mensajeria/usuarios-disponibles");
+  return data.data!;
+}
+
+// ─── FASE 5: Portales BFF ───
+
+export async function getPortalAlumno() {
+  const { data } = await api.get<ApiResponse<PortalAlumnoData>>("/portal/alumno");
+  return data.data!;
+}
+export async function getPortalDocente() {
+  const { data } = await api.get<ApiResponse<PortalDocenteData>>("/portal/docente");
+  return data.data!;
+}
+export async function getPortalPadre() {
+  const { data } = await api.get<ApiResponse<PortalPadreData>>("/portal/padre");
+  return data.data!;
+}
