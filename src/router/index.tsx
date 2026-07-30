@@ -27,6 +27,10 @@ import ReportesFinancierosPage from "@/pages/finanzas/reportes";
 import PortalAlumnoPage from "@/pages/portal/portal-alumno";
 import PortalDocentePage from "@/pages/portal/portal-docente";
 import PortalPadrePage from "@/pages/portal/portal-padre";
+import MiKardex from "@/pages/certificacion/mi-kardex";
+import TitulacionKanban from "@/pages/certificacion/titulacion";
+import EstadisticasDashboard from "@/pages/estadisticas";
+import Reportes from "@/pages/reportes";
 import AvisosPage from "@/pages/avisos";
 import MensajesPage from "@/pages/mensajes";
 import { useAuthStore } from "@/stores/auth.store";
@@ -146,6 +150,7 @@ export const router = createBrowserRouter([
               { path: "/mi-horario", element: <MiHorarioPage /> },
               { path: "/mis-calificaciones", element: <MisCalificacionesPage /> },
               { path: "/portal/alumno", element: <PortalAlumnoPage /> },
+              { path: "/mi-kardex", element: <MiKardex /> },
             ],
           },
           {
@@ -158,6 +163,19 @@ export const router = createBrowserRouter([
             element: <ProtectedRoute roles={["PADRE"]} />,
             children: [
               { path: "/portal/padre", element: <PortalPadrePage /> },
+            ],
+          },
+          {
+            element: <ProtectedRoute roles={["ADMIN", "ESCOLAR"]} />,
+            children: [
+              { path: "/titulacion", element: <TitulacionKanban /> },
+              { path: "/reportes", element: <Reportes /> },
+            ],
+          },
+          {
+            element: <ProtectedRoute roles={["ADMIN"]} />,
+            children: [
+              { path: "/estadisticas", element: <EstadisticasDashboard /> },
             ],
           },
           // Avisos y mensajes — accesibles para todos los autenticados

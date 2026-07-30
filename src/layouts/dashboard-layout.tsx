@@ -57,6 +57,10 @@ const NAV_ITEMS: NavItem[] = [
   { label: "MI ESTADO DE CUENTA", path: "/finanzas/mi-estado-cuenta", icon: <Wallet className="h-4 w-4" />, roles: ["ALUMNO", "PADRE"] },
   { label: "AVISOS", path: "/avisos", icon: <Bell className="h-4 w-4" />, roles: ["ADMIN", "ESCOLAR", "ADMINISTRATIVO", "DOCENTE", "ALUMNO", "PADRE"] },
   { label: "MENSAJES", path: "/mensajes", icon: <MessageSquare className="h-4 w-4" />, roles: ["ADMIN", "ESCOLAR", "ADMINISTRATIVO", "DOCENTE", "ALUMNO", "PADRE"] },
+  { label: "TITULACIÓN", path: "/titulacion", icon: <Award className="h-4 w-4" />, roles: ["ADMIN", "ESCOLAR"] },
+  { label: "ESTADÍSTICAS", path: "/estadisticas", icon: <BarChart3 className="h-4 w-4" />, roles: ["ADMIN"] },
+  { label: "REPORTES EXCEL", path: "/reportes", icon: <FileSpreadsheet className="h-4 w-4" />, roles: ["ADMIN", "ESCOLAR"] },
+  { label: "MI KARDEX", path: "/mi-kardex", icon: <FileText className="h-4 w-4" />, roles: ["ALUMNO"] },
 ];
 
 const ROLE_LABELS: Record<string, string> = {

@@ -154,7 +154,7 @@ export default function AsistenciaGrupoPage() {
         <Button variant="outline" size="icon" onClick={loadGrupoData}>
           <RefreshCw className="h-4 w-4" />
         </Button>
-        <Button variant={showStats ? "default" : "outline"} size="sm" onClick={() => setShowStats(!showStats)}>
+        <Button variant={showStats ? "primary" : "outline"} size="sm" onClick={() => setShowStats(!showStats)}>
           <AlertTriangle className="h-4 w-4 mr-1" />
           Estadísticas
         </Button>

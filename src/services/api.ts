@@ -409,3 +409,5 @@ export async function getPortalPadre() {
   const { data } = await api.get<ApiResponse<PortalPadreData>>("/portal/padre");
   return data.data!;
 }
+
+export default api;
