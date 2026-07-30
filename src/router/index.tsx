@@ -24,6 +24,11 @@ import BecasPage from "@/pages/finanzas/becas";
 import FacturasPage from "@/pages/finanzas/facturas";
 import EstadoCuentaPage from "@/pages/finanzas/estado-cuenta";
 import ReportesFinancierosPage from "@/pages/finanzas/reportes";
+import PortalAlumnoPage from "@/pages/portal/portal-alumno";
+import PortalDocentePage from "@/pages/portal/portal-docente";
+import PortalPadrePage from "@/pages/portal/portal-padre";
+import AvisosPage from "@/pages/avisos";
+import MensajesPage from "@/pages/mensajes";
 import { useAuthStore } from "@/stores/auth.store";
 
 function ProtectedRoute({ roles }: { roles?: string[] }) {
@@ -140,8 +145,24 @@ export const router = createBrowserRouter([
             children: [
               { path: "/mi-horario", element: <MiHorarioPage /> },
               { path: "/mis-calificaciones", element: <MisCalificacionesPage /> },
+              { path: "/portal/alumno", element: <PortalAlumnoPage /> },
             ],
           },
+          {
+            element: <ProtectedRoute roles={["DOCENTE"]} />,
+            children: [
+              { path: "/portal/docente", element: <PortalDocentePage /> },
+            ],
+          },
+          {
+            element: <ProtectedRoute roles={["PADRE"]} />,
+            children: [
+              { path: "/portal/padre", element: <PortalPadrePage /> },
+            ],
+          },
+          // Avisos y mensajes — accesibles para todos los autenticados
+          { path: "/avisos", element: <AvisosPage /> },
+          { path: "/mensajes", element: <MensajesPage /> },
         ],
       },
     ],
@@ -151,4 +172,3 @@ export const router = createBrowserRouter([
     element: <Navigate to="/" replace />,
   },
 ]);
-
