@@ -50,7 +50,7 @@ export default function PortalAlumnoPage() {
             tone="primary"
           />
         </div>
-        <div onClick={() => navigate("/finanzas/estado-cuenta")} className="cursor-pointer hover:opacity-90 transition-opacity">
+        <div onClick={() => navigate("/finanzas/mi-estado-cuenta")} className="cursor-pointer hover:opacity-90 transition-opacity">
           <StatCard
             icon={<Wallet className="h-6 w-6" />}
             label="Saldo Pendiente"
