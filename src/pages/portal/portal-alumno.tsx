@@ -41,21 +41,25 @@ export default function PortalAlumnoPage() {
 
       {/* KPIs */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        <StatCard
-          icon={<GraduationCap className="h-6 w-6" />}
-          label="Promedio General"
-          value={data.promedioGeneral !== null ? data.promedioGeneral.toFixed(1) : "—"}
-          hint={data.inscripciones.length > 0 ? `${data.inscripciones.length} materias inscritas` : "Sin inscripciones"}
-          tone="primary"
-        />
-        <StatCard
-          icon={<Wallet className="h-6 w-6" />}
-          label="Saldo Pendiente"
-          value={`$${data.saldoPendiente}`}
-          hint={`${data.colegiaturasPendientes} colegiatura(s) por pagar`}
-          tone={Number(data.saldoPendiente) > 0 ? "secondary" : "primary"}
-          trend={Number(data.saldoPendiente) > 0 ? "down" : "up"}
-        />
+        <div onClick={() => navigate("/mis-calificaciones")} className="cursor-pointer hover:opacity-90 transition-opacity">
+          <StatCard
+            icon={<GraduationCap className="h-6 w-6" />}
+            label="Promedio General"
+            value={data.promedioGeneral !== null ? data.promedioGeneral.toFixed(1) : "—"}
+            hint={data.inscripciones.length > 0 ? `${data.inscripciones.length} materias inscritas` : "Sin inscripciones"}
+            tone="primary"
+          />
+        </div>
+        <div onClick={() => navigate("/finanzas/estado-cuenta")} className="cursor-pointer hover:opacity-90 transition-opacity">
+          <StatCard
+            icon={<Wallet className="h-6 w-6" />}
+            label="Saldo Pendiente"
+            value={`$${data.saldoPendiente}`}
+            hint={`${data.colegiaturasPendientes} colegiatura(s) por pagar`}
+            tone={Number(data.saldoPendiente) > 0 ? "secondary" : "primary"}
+            trend={Number(data.saldoPendiente) > 0 ? "down" : "up"}
+          />
+        </div>
         <div onClick={() => navigate("/avisos")} className="cursor-pointer">
           <StatCard
             icon={<Bell className="h-6 w-6" />}

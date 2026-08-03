@@ -7,6 +7,7 @@ import DataTable, { type Column } from "@/components/ui/data-table";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
 import { formatMoney, formatDate } from "@/lib/format";
 
 const ESTATUS_COLOR: Record<string, string> = {
@@ -47,6 +48,21 @@ export default function EstadoCuentaPage() {
     } catch { toast.error("Error al cargar estado de cuenta"); }
   };
 
+  const handlePagar = async (movimiento: EstadoCuentaMovimiento) => {
+    try {
+      await api.pagarEnLinea({ colegiaturaId: movimiento.id, monto: Number(movimiento.saldo) });
+      toast.success("Pago en línea exitoso");
+      // Recargar datos
+      if (esAlumno) {
+        setEstado(await api.getMiEstadoCuenta());
+      } else {
+        setEstado(await api.getEstadoCuenta(alumnoId));
+      }
+    } catch (e) {
+      toast.error("Error al procesar el pago");
+    }
+  };
+
   const columns: Column<EstadoCuentaMovimiento>[] = [
     { key: "concepto", header: "Concepto" },
     { key: "cicloEscolar", header: "Ciclo", render: (m) => m.cicloEscolar?.nombre ?? "—" },
@@ -55,6 +71,13 @@ export default function EstadoCuentaPage() {
     { key: "saldo", header: "Saldo", render: (m) => <span className={Number(m.saldo) > 0 ? "font-medium" : ""}>{formatMoney(m.saldo)}</span> },
     { key: "fechaVencimiento", header: "Vence", render: (m) => formatDate(m.fechaVencimiento) },
     { key: "estatus", header: "Estatus", render: (m) => <span className={ESTATUS_COLOR[m.estatus] || ""}>{m.estatus}</span> },
+    { 
+      key: "acciones", 
+      header: "Acciones", 
+      render: (m) => esAlumno && (m.estatus === "PENDIENTE" || m.estatus === "PARCIAL" || m.estatus === "VENCIDA") ? (
+        <Button size="sm" onClick={() => handlePagar(m)}>Pagar</Button>
+      ) : null
+    },
   ];
 
   if (loading) return <p className="text-muted-foreground">Cargando...</p>;

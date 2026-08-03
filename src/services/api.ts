@@ -340,6 +340,10 @@ export async function getMiEstadoCuenta() {
   const { data } = await api.get<ApiResponse<EstadoCuenta>>("/finanzas/mi-estado-cuenta");
   return data.data!;
 }
+export async function pagarEnLinea(payload: { colegiaturaId: string; monto: number }) {
+  const { data } = await api.post<ApiResponse<any>>("/finanzas/pagar-en-linea", payload);
+  return data;
+}
 export async function getReporteFinanciero(cicloEscolarId?: string) {
   const query = cicloEscolarId ? `?cicloEscolarId=${cicloEscolarId}` : "";
   const { data } = await api.get<ApiResponse<ReporteFinanciero>>(`/finanzas/reportes${query}`);
