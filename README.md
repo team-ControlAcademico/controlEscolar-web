@@ -24,7 +24,6 @@
 ## 📋 Tabla de Contenidos
 
 - [Descripción](#-descripción)
-- [Capturas de Pantalla](#-capturas-de-pantalla)
 - [Stack Tecnológico](#-stack-tecnológico)
 - [Características por Rol](#-características-por-rol)
 - [Requisitos](#-requisitos)
@@ -47,18 +46,6 @@ La plataforma se adapta dinámicamente al rol del usuario autenticado, mostrando
 - **Docentes:** Portal con grupos asignados, captura de asistencia y calificaciones.
 - **Alumnos:** Portal personal con horario semanal, boleta, estado de cuenta y pagos en línea.
 - **Padres:** Seguimiento del rendimiento académico y financiero de sus hijos.
-
----
-
-## 🖼 Capturas de Pantalla
-
-| Portal del Alumno | Gestión de Usuarios |
-|---|---|
-| Dashboard con KPIs, materias y horarios | CRUD completo con filtros y badges de rol |
-
-| Estado de Cuenta | Horario Semanal |
-|---|---|
-| Movimientos financieros con pagos en línea | Vista calendario de lunes a viernes |
 
 ---
 
