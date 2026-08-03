@@ -176,7 +176,7 @@ export default function MiHorarioPage() {
             {/* Filas de Horas */}
             <div className="space-y-1">
               {HORAS.map((hora) => (
-                <div key={hora} className="grid grid-cols-7 min-h-[64px] border-b border-muted/30 items-stretch">
+                <div key={hora} className="grid grid-cols-7 h-[64px] min-h-[64px] border-b border-muted/30 items-stretch">
                   {/* Hora */}
                   <div className="w-16 text-xs text-muted-foreground font-mono pt-1">
                     {hora}
