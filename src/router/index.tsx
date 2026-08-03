@@ -29,6 +29,7 @@ import PortalDocentePage from "@/pages/portal/portal-docente";
 import PortalPadrePage from "@/pages/portal/portal-padre";
 import AvisosPage from "@/pages/avisos";
 import MensajesPage from "@/pages/mensajes";
+import UsuariosPage from "@/pages/usuarios";
 import { useAuthStore } from "@/stores/auth.store";
 
 function ProtectedRoute({ roles }: { roles?: string[] }) {
@@ -100,6 +101,7 @@ export const router = createBrowserRouter([
               { path: "/materias", element: <MateriasPage /> },
               { path: "/ciclos", element: <CiclosPage /> },
               { path: "/grupos/:id/horarios", element: <HorariosGrupoPage /> },
+              { path: "/usuarios", element: <UsuariosPage /> },
             ],
           },
           {

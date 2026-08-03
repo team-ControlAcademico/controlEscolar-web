@@ -45,6 +45,7 @@ const NAV_ITEMS: NavItem[] = [
   { label: "MATERIAS", path: "/materias", icon: <BookMarked className="h-4 w-4" />, roles: ["ADMIN", "ESCOLAR"], hasChevron: true },
   { label: "CICLOS ESCOLARES", path: "/ciclos", icon: <Calendar className="h-4 w-4" />, roles: ["ADMIN", "ESCOLAR"] },
   { label: "GRUPOS", path: "/grupos", icon: <Users className="h-4 w-4" />, roles: ["ADMIN", "ESCOLAR", "DOCENTE"] },
+  { label: "USUARIOS", path: "/usuarios", icon: <Users className="h-4 w-4" />, roles: ["ADMIN", "ESCOLAR"] },
   { label: "INSCRIPCIONES", path: "/inscripciones", icon: <ClipboardList className="h-4 w-4" />, roles: ["ADMIN", "ESCOLAR", "ADMINISTRATIVO"] },
   { label: "COLEGIATURAS", path: "/finanzas/colegiaturas", icon: <Wallet className="h-4 w-4" />, roles: ["ADMIN", "ADMINISTRATIVO"] },
   { label: "PAGOS", path: "/finanzas/pagos", icon: <Receipt className="h-4 w-4" />, roles: ["ADMIN", "ADMINISTRATIVO"] },

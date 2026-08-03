@@ -415,3 +415,40 @@ export async function getPortalPadre() {
   const { data } = await api.get<ApiResponse<PortalPadreData>>("/portal/padre");
   return data.data!;
 }
+
+// ─── Gestión de Usuarios ───
+
+export async function getUsuarios(params?: { role?: string; busqueda?: string }) {
+  const query = new URLSearchParams();
+  if (params?.role) query.append("role", params.role);
+  if (params?.busqueda) query.append("busqueda", params.busqueda);
+  const qStr = query.toString() ? `?${query.toString()}` : "";
+  const { data } = await api.get<ApiResponse<User[]>>(`/usuarios${qStr}`);
+  return data.data!;
+}
+
+export async function getUsuario(id: string) {
+  const { data } = await api.get<ApiResponse<User>>(`/usuarios/${id}`);
+  return data.data!;
+}
+
+export async function crearUsuarioAdmin(payload: RegisterInput) {
+  const { data } = await api.post<ApiResponse<User>>("/usuarios", payload);
+  return data.data!;
+}
+
+export async function actualizarUsuario(id: string, payload: Partial<RegisterInput & { isActive: boolean }>) {
+  const { data } = await api.put<ApiResponse<User>>(`/usuarios/${id}`, payload);
+  return data.data!;
+}
+
+export async function eliminarUsuario(id: string) {
+  const { data } = await api.delete<ApiResponse<null>>(`/usuarios/${id}`);
+  return data;
+}
+
+export async function toggleActivarUsuario(id: string) {
+  const { data } = await api.patch<ApiResponse<User>>(`/usuarios/${id}/toggle-activo`);
+  return data.data!;
+}
+
