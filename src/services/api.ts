@@ -146,10 +146,11 @@ export async function removeHorario(grupoId: string, horarioId: string) {
 }
 
 // ─── Inscripciones ───
-export async function getInscripciones(params?: { grupoId?: string; alumnoId?: string }) {
+export async function getInscripciones(params?: { grupoId?: string; alumnoId?: string; cicloId?: string }) {
   const query = new URLSearchParams();
   if (params?.grupoId) query.append("grupoId", params.grupoId);
   if (params?.alumnoId) query.append("alumnoId", params.alumnoId);
+  if (params?.cicloId) query.append("cicloId", params.cicloId);
   const { data } = await api.get<ApiResponse<Inscripcion[]>>(`/inscripciones?${query}`);
   return data.data!;
 }
@@ -223,8 +224,9 @@ export async function getBoletaAlumno(alumnoId: string, cicloEscolarId?: string)
   const { data } = await api.get<ApiResponse<BoletaResult>>(`/calificaciones/alumno/${alumnoId}/boleta${query}`);
   return data.data!;
 }
-export async function getMisCalificaciones() {
-  const { data } = await api.get<ApiResponse<BoletaResult>>("/calificaciones/mis-calificaciones");
+export async function getMisCalificaciones(cicloEscolarId?: string) {
+  const query = cicloEscolarId ? `?cicloEscolarId=${cicloEscolarId}` : "";
+  const { data } = await api.get<ApiResponse<BoletaResult>>(`/calificaciones/mis-calificaciones${query}`);
   return data.data!;
 }
 

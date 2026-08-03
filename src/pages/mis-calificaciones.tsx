@@ -1,19 +1,33 @@
 import { useState, useEffect } from "react";
 import { toast } from "sonner";
-import type { BoletaResult, Asistencia } from "@/types";
+import type { BoletaResult, Asistencia, CicloEscolar } from "@/types";
 import * as api from "@/services/api";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { GraduationCap, BookOpen, CheckCircle2, XCircle, Calendar } from "lucide-react";
+import { GraduationCap, BookOpen, CheckCircle2, XCircle, Calendar, Filter } from "lucide-react";
 
 export default function MisCalificacionesPage() {
   const [boleta, setBoleta] = useState<BoletaResult | null>(null);
   const [asistencias, setAsistencias] = useState<Asistencia[]>([]);
+  const [ciclos, setCiclos] = useState<CicloEscolar[]>([]);
+  const [selectedCiclo, setSelectedCiclo] = useState<string>("TODOS");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const load = async () => {
+    const loadCiclos = async () => {
       try {
-        const boletaData = await api.getMisCalificaciones();
+        const list = await api.getCiclos();
+        setCiclos(list);
+      } catch {}
+    };
+    loadCiclos();
+  }, []);
+
+  useEffect(() => {
+    const load = async () => {
+      setLoading(true);
+      try {
+        const cicloId = selectedCiclo === "TODOS" ? undefined : selectedCiclo;
+        const boletaData = await api.getMisCalificaciones(cicloId);
         setBoleta(boletaData);
 
         // Cargar asistencia del alumno
@@ -31,7 +45,7 @@ export default function MisCalificacionesPage() {
       setLoading(false);
     };
     load();
-  }, []);
+  }, [selectedCiclo]);
 
   const getColorForGrade = (n: number | null) => {
     if (n == null) return "text-muted-foreground";
@@ -57,12 +71,32 @@ export default function MisCalificacionesPage() {
 
   return (
     <div className="space-y-4">
-      <h1 className="text-2xl font-bold">Mis Calificaciones</h1>
-      {boleta?.alumno && (
-        <p className="text-sm text-muted-foreground">
-          {boleta.alumno.nombre} — Matrícula: {boleta.alumno.matricula} — Semestre {boleta.alumno.semestre}
-        </p>
-      )}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        <div>
+          <h1 className="text-2xl font-bold">Mis Calificaciones</h1>
+          {boleta?.alumno && (
+            <p className="text-sm text-muted-foreground">
+              {boleta.alumno.nombre} — Matrícula: {boleta.alumno.matricula} — Semestre {boleta.alumno.semestre}
+            </p>
+          )}
+        </div>
+
+        <div className="flex items-center gap-2">
+          <Filter className="h-4 w-4 text-muted-foreground" />
+          <select
+            className="border rounded-md px-3 py-1.5 text-sm bg-background focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={selectedCiclo}
+            onChange={(e) => setSelectedCiclo(e.target.value)}
+          >
+            <option value="TODOS">Todos los Ciclos</option>
+            {ciclos.map((c) => (
+              <option key={c.id} value={c.id}>
+                {c.nombre} {c.activo ? "(Actual)" : ""}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
 
       {/* Summary Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-4 gap-3">
