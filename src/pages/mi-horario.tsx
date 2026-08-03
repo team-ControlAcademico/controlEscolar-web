@@ -19,9 +19,10 @@ export default function MiHorarioPage() {
     const load = async () => {
       try {
         const alumnoId = user?.alumno?.id;
-        if (!alumnoId) return;
-        const data = await api.getInscripciones({ alumnoId });
-        setInscripciones(data);
+        if (alumnoId) {
+          const data = await api.getInscripciones({ alumnoId });
+          setInscripciones(data);
+        }
       } catch { toast.error("Error al cargar horario"); }
       setLoading(false);
     };

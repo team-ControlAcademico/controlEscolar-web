@@ -31,6 +31,13 @@ export const useAuthStore = create<AuthState>((set) => ({
       try {
         const user = JSON.parse(userStr) as User;
         set({ user, accessToken, refreshToken, isAuthenticated: true, isLoading: false });
+        // Refrescar perfil completo (incluyendo perfiles alumno/docente/etc.)
+        apiService.getProfile().then((res) => {
+          if (res.user) {
+            set({ user: res.user });
+            localStorage.setItem("user", JSON.stringify(res.user));
+          }
+        }).catch(() => {});
       } catch {
         localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");
